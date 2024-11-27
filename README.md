@@ -4,7 +4,7 @@
 
 This repository contains the solution from my YouTube video showing how to create your own CSS framework for use with Blazor.
 
-YouTube video: Will update after upload
+YouTube video: https://youtu.be/_K-EOfr5pE8
 
 Coffees welcomed : https://ko-fi.com/codedispenser
 
