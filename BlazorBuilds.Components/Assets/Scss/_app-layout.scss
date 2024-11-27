@@ -1,0 +1,98 @@
+﻿@use "core/_configuration" as *;
+@use "core/_functions" as *;
+
+$app-header-height: 4rem;
+$app-footer-height: 3rem;
+$app-nav-max-width: 16rem;
+$app-nav-min-width: 4rem;
+
+#app {
+    position: relative;
+    height: 100vh;
+    display: grid;
+    grid-template-areas: "header header" "nav main" "footer footer";
+    grid-template-columns: auto 1fr;
+    grid-template-rows: $app-header-height 1fr $app-footer-height;
+    
+    &__header {
+        grid-area: header;
+        height: $app-header-height;
+        background-color: var(--primary-clr);
+        color: var(--text-neutral-light);
+    }
+
+    &__navigation {
+        grid-area: nav;
+        max-width: $app-nav-max-width;
+        width: $app-nav-max-width;
+        transition: width 250ms ease-in-out;
+        background-color: var(--control-heading-area-clr);
+        border-right: 1px solid var(--control-divider-clr);
+
+        .nav-link {
+            width: max-content;
+            transform: scaleX(1);
+            transform-origin: left;
+            transition: width 250ms, transform 250ms;
+        }
+    }
+
+    &__main {
+        grid-area: main;
+        height: calc(100vh - $app-footer-height - $app-header-height);
+        overflow: auto;
+    }
+
+    &__footer {
+        grid-area: footer;
+        height: $app-footer-height;
+        background-color: var(--primary-clr);
+        color: var(--primary-text-light);
+    }
+
+    @include media-device-lg(max-width) //@mixin media-device-sm($width:min-width)
+    {
+        &__navigation {
+            width: $app-nav-min-width;
+            transition: width 250ms ease-in-out;
+            overflow: clip;
+
+            .nav-link {
+                width: 0px;
+                transform: scaleX(0);
+                position: absolute;
+                left: 3rem;
+            }
+
+
+            &:focus-within, &:hover {
+                width: $app-nav-max-width;
+                max-width: $app-nav-max-width;
+                transition: width 125ms ease-in-out;
+
+                & .nav-link {
+                    transform: scaleX(1);
+                }
+            }
+
+            &:focus-within + #app__main, &:hover + #app__main {
+                position: relative;
+                margin-right: -$app-nav-max-width;
+            }
+        }
+    }
+
+    @include media-device-sm(max-width) //@mixin media-device-sm($width:min-width)
+    {
+        &__navigation {
+            margin-left: -$app-nav-min-width;
+            overflow: clip;
+
+            &:focus-within, &:hover {
+                width: $app-nav-max-width;
+                margin-left: 0;
+            }
+        }
+    }
+}
+

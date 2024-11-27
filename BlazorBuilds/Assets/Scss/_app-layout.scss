@@ -1,0 +1,150 @@
+﻿@use "core/_01_configuration" as *;
+@use "core/_02_functions" as *;
+@use "core/_svg-icons";
+
+$_app-header-height: 4rem;
+$_app-footer-height: 3rem;
+$_app-nav-max-width: 16rem;
+$_app-nav-min-width: 4rem;
+
+#app {
+    position: relative;
+    height: 100vh;
+    display: grid;
+    grid-template-areas: "header header" "nav main" "footer footer";
+    grid-template-columns: auto 1fr;
+    grid-template-rows: $_app-header-height 1fr $_app-footer-height;
+
+    &__header {
+        grid-area: header;
+        height: $_app-header-height;
+        background-color: var(--primary-clr);
+        color: var(--text-neutral-light);
+
+        & #menu-toggler {
+            appearance: none;
+            border: none;
+            outline: none;
+            display: none;
+            color: inherit;
+            @extend %burger-open-icon;
+        }
+
+        @include media-device-sm(max-width) {
+            justify-content: space-between; //keep burger at left of screen and switch on the right
+
+            & #menu-toggler {
+                display: inline; //display burger when icons and nav text are gone
+                appearance: none;
+                height: 1.5rem;
+                width: 1.5rem;
+            }
+        }
+    }
+
+    &__navigation {
+        // this whole section should be in its own component with the text and icons being BEM elements
+        // left here so all code in one place as there is more code than I really wanted to release, but adding more stuff/separation may be cause information overload etc.
+        grid-area: nav;
+        max-width: $_app-nav-max-width;
+        width: $_app-nav-max-width;
+        transition: width 250ms ease-in-out;
+        background-color: var(--control-heading-area-bg);
+        border-right: 1px solid var(--control-divider-bg);
+        color: var(--text-primary-dark);
+        text-decoration: none;
+
+        & a {
+            color: inherit;
+            text-decoration: none;
+
+            &:hover {
+                outline: 2px solid var(--focus-clr);
+                outline-offset: 0.25rem;
+                border-radius: 0.25rem;
+            }
+        }
+
+        .nav-text {
+            width: max-content;
+            transform-origin: left;
+            transform: scaleX(1);
+            transform-origin: left;
+            transition: width 250ms, transform 250ms
+        }
+
+        .nav-icon {
+            min-width: 1.5rem;
+            min-height: 1.5rem;
+        }
+    }
+
+    &__main {
+        grid-area: main;
+        height: calc(100vh - $_app-footer-height - $_app-header-height);
+        overflow: auto;
+    }
+
+    &__footer {
+        grid-area: footer;
+        height: $_app-footer-height;
+        background-color: var(--primary-clr);
+        color: var(--primary-text-light);
+    }
+
+
+    @include media-device-lg(max-width) //@mixin media-device-sm($width:min-width)
+    {
+        &__navigation {
+            width: $_app-nav-min-width;
+            transition: width 250ms ease-in-out;
+            overflow: clip;
+
+            .nav-text {
+                width: 0px;
+                transform: scaleX(0);
+                left: 3rem;
+            }
+        }
+    }
+
+    @include media-device-sm(max-width) //@mixin media-device-sm($width:min-width)
+    {
+        &__navigation {
+            margin-left: -$_app-nav-min-width;
+            overflow: clip;
+
+            &:focus-within, &:hover {
+                width: $_app-nav-max-width;
+                margin-left: 0;
+            }
+        }
+    }
+}
+
+#app:has(#menu-toggler:checked) {
+
+    & #app__navigation {
+        width: $_app-nav-max-width;
+        margin-left: 0;
+
+        & .nav-text {
+            transform: scaleX(1);
+        }
+    }
+    & #app__header #menu-toggler:checked {
+        @extend %burger-close-icon;//use this icon when burger has been clicked and caused the checkbox to be ticked
+        height: 1.5rem;
+        width: 1.5rem;
+    }
+}
+
+//use this to hide the speicific styles now in play.
+//The media query used to show the burger used max-width 576, so we can not use that as it would just dissapear as the size is 576
+//we need another query so we can use min-width 577 to hide it now we have moved
+
+@media (min-width: $device-sm-min-width + 1) {
+    #app:has(#menu-toggler:checked) #app__header #menu-toggler:checked {
+        display: none;
+    }
+}

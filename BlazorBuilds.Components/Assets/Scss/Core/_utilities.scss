@@ -1,0 +1,66 @@
+﻿@use "_configuration" as *;
+@use "_functions" as *;
+
+                                           //($class-property-map, $start-index: 0, $increment-step: 1,$max-index: 8, $unit-factor: 0.25rem)
+@include generate-key-value-property-classes($padding-class-property-map, 0, $spacing-increment, $spacing-max-index, $spacing-unit-factor);  
+@include generate-key-value-property-classes($margin-class-property-map, 0, $spacing-increment, $spacing-max-index, $spacing-unit-factor);                             
+@include generate-key-value-property-classes($border-radius-class-property-map, 0, $border-radius--increment, $border-radius--max-index, $border-radius--unit-factor);
+
+
+                                         //($bg-shade-classes-map, $percent-increment: 10, $colour-suffix: "-clr",$lighter-prefix: "lighter", $darker-prefix: "darker")
+@include generate-shade-bg-classes-from-map($include-bg-shade-classes-map,$shade-percentage-increment);
+
+                                        //($colour-value, $mix-percent, $mix-colour);
+
+$neutral-white-95: make-mixed-colour($neutral-colour, $text-light-mix-percent, $light-mix-colour);
+$neutral-black-80: make-mixed-colour($neutral-colour, $text-dark-mix-percent, $dark-mix-colour);
+
+$contrast: calculate-contrast($primary-colour,$neutral-white-95);
+.primary-colour-contrast-on-light::after { content: " on neutral 95% white background #{$contrast}";}
+
+$contrast: calculate-contrast($primary-colour, $neutral-black-80);
+.primary-colour-contrast-on-dark::after { content: " on neutral 80% black background: #{$contrast}";}
+
+$contrast: calculate-contrast($accent-colour, $neutral-white-95);
+.accent-colour-contrast-on-light::after { content: " on neutral 95% white background: #{$contrast}";}
+
+$contrast: calculate-contrast($accent-colour, $neutral-black-80);
+.accent-colour-contrast-on-dark::after { content: " on neutral 80% black background: #{$contrast}";}
+
+$contrast: calculate-contrast($accent-colour, $primary-colour);
+
+.accent-colour-contrast-on-primary::after {
+    content: " on primary colour: #{$contrast}";
+}
+
+@include generate-single-property-class($primary-prefix + "-color", "color", make-var-function($primary-prefix + $suffix-clr));
+@include generate-single-property-class($accent-prefix  + "-color", "color", make-var-function($accent-prefix  + $suffix-clr));
+@include generate-single-property-class($neutral-prefix + "-color", "color", make-var-function($neutral-prefix + $suffix-clr));
+@include generate-single-property-class($danger-prefix  + "-color", "color", make-var-function($danger-prefix  + $suffix-clr));
+@include generate-single-property-class($warning-prefix + "-color", "color", make-var-function($warning-prefix + $suffix-clr));
+@include generate-single-property-class($success-prefix + "-color", "color", make-var-function($success-prefix + $suffix-clr));
+@include generate-single-property-class($info-prefix    + "-color", "color", make-var-function($info-prefix    + $suffix-clr));
+
+@include generate-font-weight-vars-classes($font-weight-prefix, $make-var: false);
+@include generate-font-size-vars-classes($font-prefix,$base-font-size, $font-scale-factor,$make-var: false);
+
+@include generate-single-property-class("overflow-hidden","overflow","hidden");
+@include generate-single-property-class("overflow-auto","overflow","auto");
+@include generate-single-property-class("overflow-scroll","overflow","scroll");
+@include generate-single-property-class("overflow-scroll-X","overflow-x","scroll");
+@include generate-single-property-class("overflow-scroll-y","overflow-y","scroll");
+@include generate-single-property-class("overflow-clip","overflow","clip");
+
+@include generate-single-property-class("elevate-1","box-shadow",$box-shadow-1);
+@include generate-single-property-class("elevate-2","box-shadow",$box-shadow-2);
+@include generate-single-property-class("elevate-3","box-shadow",$box-shadow-3);
+@include generate-single-property-class("elevate-4","box-shadow",$box-shadow-4);
+@include generate-single-property-class("elevate-5","box-shadow",$box-shadow-5);
+
+@include generate-single-property-class("fs-label","font-size","0.875rem");
+
+
+.swatch-box {
+    height: 50px;
+    width: 50px;
+}

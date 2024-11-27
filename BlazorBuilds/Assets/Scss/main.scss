@@ -1,0 +1,20 @@
+﻿
+//This file configures what file outputs you want in the final css.
+
+//Sass does not allow using numbers at the start of (namespaces) partials (gets implicit namespaces behind the scenes if not provide) like I have done, so I have had ot use as * to fix the error you would get.
+
+//I do not normally use numbers, I added them to help show the importance of these files
+
+@use "core/_03_root" as *;
+@use "core/_04_utilities" as *;
+@use "core/_containers";
+@use "core/_boxes"; 
+@use "core/_buttons";
+@use "core/_svg-icons";
+
+
+@use "_app-layout"; //layouts for choice would be added to core framework
+
+@use "_switch";        
+@use "_general";
+

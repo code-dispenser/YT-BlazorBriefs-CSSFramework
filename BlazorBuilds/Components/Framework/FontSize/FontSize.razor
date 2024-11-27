@@ -1,0 +1,45 @@
+﻿<div class="flex-content flex-content--columns flex-content--wrap gaps-4">
+    <h1>Available Font Sizes</h1>
+    @{
+        double _fontSize = Math.Pow(FontScaleFactor, (SmallFontSzeCount * -1) -1);
+
+        for (int index = SmallFontSzeCount; index > 0; index--)
+        {
+            _fontSize       = _fontSize * FontScaleFactor;
+            var className   = $"{FontSizePrefix}-{SmallPrefix}-{index}";
+            var roundedSize = Math.Round(_fontSize, 2);
+
+            <div>
+                <p class="@FontLabelClass">Class: @className - @roundedSize rem</p>
+                <span class="@className">@FontSizeText</span>
+            </div>
+        }
+        <div>
+            <p class="@FontLabelClass">Class: @FontLabelClass - special case not generated</p>
+            <span class="@FontLabelClass">@FontSizeText</span>
+        </div>
+
+        for(int index = 1; index <= FontSizeCount; index++)
+        {
+            _fontSize = _fontSize * FontScaleFactor;
+            var className = $"{FontSizePrefix}-{index}";
+            var roundedSize = Math.Round(_fontSize, 2);
+            <div>
+                <p class="@FontLabelClass">Class: @className - @roundedSize rem</p>
+                <span class="@className">@FontSizeText</span>
+            </div>
+        }
+    }
+</div>
+@code {
+    [Parameter, EditorRequired] public double FontScaleFactor   { get; set; } = GlobalValues.Font_Scale_Factor;
+    [Parameter, EditorRequired] public int    SmallFontSzeCount { get; set; } = GlobalValues.Small_Font_Size_Count;
+    [Parameter, EditorRequired] public int    FontSizeCount     { get; set; } = GlobalValues.Font_Size_Count;
+    [Parameter, EditorRequired] public string FontSizePrefix    { get; set; } = GlobalValues.Font_Size_Prefix;
+    [Parameter, EditorRequired] public string SmallPrefix       { get; set; } = GlobalValues.Small_Prefix;
+    [Parameter, EditorRequired] public string FontSizeText      { get; set; } = GlobalValues.Font_Size_Text;
+    [Parameter, EditorRequired] public string FontLabelClass    { get; set; } = GlobalValues.Font_Label_Class;
+
+    
+}
+

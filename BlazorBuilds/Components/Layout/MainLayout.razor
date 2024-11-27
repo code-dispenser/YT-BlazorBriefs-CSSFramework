@@ -1,0 +1,31 @@
+﻿@inherits LayoutComponentBase
+<div id="app">
+   @*You should put this code in a app header component *@
+
+    <header id="app__header" class="flex-content justify-content-end pad-all-4">
+        <input type="checkbox" id="menu-toggler" class="nav-icon pointer-curser" aria-label="Show minimized menu" />
+        <Switch Label="Dark theme" LabelVisible="false" OffText="Light mode" OnText="Dark mode" StyleAs="StyleAs.OnDark" />
+    </header>
+
+    @*  You would put this code in a app navigation component *@
+    
+    <div id="app__navigation">
+        <NavMenu />
+    </div>
+
+    <div id="app__main">
+        <div class="content-container">
+            @Body
+        </div>
+    </div>
+    
+    @*  You would put this code in a app navigation component *@
+    
+    <footer id="app__footer">
+
+    </footer>
+</div>
+
+@code{
+
+}

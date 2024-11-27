@@ -1,0 +1,54 @@
+﻿@using BlazorBuilds.Components.Common.Seeds
+
+<button class="switch" type="button" role="switch" aria-checked="@_switchState.ToString().ToLower()" data-static="@_styleType"
+@onclick="() => RaiseOnSwitchStateChanged(!_switchState)" aria-label="@Label" aria-disabled="@Disabled.ToString().ToLower()">
+
+    @if (true == LabelVisible)
+    {
+        <span class="switch__label">@Label</span>
+    }
+
+    <span class="switch__rocker"></span>
+
+    @if (false == String.IsNullOrWhiteSpace(OnText) && false == String.IsNullOrWhiteSpace(OffText))
+    {
+        <span class="switch__text" aria-hidden="true">@(_switchState ? OnText : OffText)</span>
+    }
+
+</button>
+
+@code {
+
+
+    [EditorRequired]
+    [Parameter] public string  Label        { get; set; } = default!;
+    [Parameter] public bool    LabelVisible { get; set; } = true;
+    [Parameter] public string  OnText       { get; set; } = String.Empty; 
+    [Parameter] public string  OffText      { get; set; } = String.Empty;
+    [Parameter] public bool    SwitchState  { get; set; } = false;
+    [Parameter] public bool    Disabled     { get; set; } = false;
+    [Parameter] public StyleAs StyleAs      { get; set; } = StyleAs.Dynamic;
+
+    [Parameter] public EventCallback<bool> SwitchStateChanged { get; set; }
+
+    private bool    _switchState = false;
+    private string? _styleType   = null;
+
+    private async Task RaiseOnSwitchStateChanged(bool switchState)
+    {
+        if (switchState == _switchState || true == Disabled) return;
+
+        _switchState = switchState;
+
+        if (true == SwitchStateChanged.HasDelegate) await SwitchStateChanged.InvokeAsync(switchState);
+
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _styleType = StyleAs == StyleAs.Dynamic ? null : (StyleAs == StyleAs.OnLight ? "light" : "dark");
+        if (true == String.IsNullOrWhiteSpace(Label)) throw new ArgumentNullException(nameof(Label), "Label cannot be null, empty or whitespace");
+        if (_switchState != SwitchState && false == Disabled) await RaiseOnSwitchStateChanged(SwitchState);
+    }
+
+}

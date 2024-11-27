@@ -1,0 +1,76 @@
+﻿
+.box {
+    --_radius: 0.5rem;
+    border: 1px solid var(--control-border-bg);
+    border-top: 4px solid var(--control-border-bg);
+    border-top-left-radius: calc(var(--control-border-radius) * 2);
+    border-top-right-radius: calc(var(--control-border-radius) * 2);
+    border-bottom-left-radius: var(--control-border-radius);
+    border-bottom-right-radius: var(--control-border-radius);
+
+
+    &--highlight {
+        border-top: 4px solid var(--control-chrome-highlight-bg);
+    }
+
+    &__header {
+        min-height: 3.25rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        border-top-left-radius: var(--control-border-radius);
+        border-top-right-radius: var(--control-border-radius);
+        background-color: var(--control-heading-area-bg);
+        border-bottom: 1px solid var(--control-border-bg);
+        padding-block: 0.5rem;
+        padding-inline: 1rem;
+    }
+
+    &__title {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.5rem;
+    }
+
+    &__icon {
+        order: 0;
+        max-height: 1.5rem;
+        max-width: 1.5rem;
+        font-size: 1.5rem;
+    }
+
+    &__controls {
+        display: flex;
+        gap: 0.75rem;
+    }
+
+    &__body {
+        padding: 1rem;
+        background-color: var(--control-body-area-bg);
+        padding-bottom: 1rem;
+        border-bottom-left-radius: var(--control-border-radius);
+        border-bottom-right-radius: var(--control-border-radius);
+        
+    }
+
+
+    &__footer {
+        border-top:1px solid var(--control-border-bg);
+        background-color: var(--control-footer-area-bg);
+        border-bottom-left-radius: var(--control-border-radius);
+        border-bottom-right-radius: var(--control-border-radius);
+        min-height: 1.5rem;
+        padding-block: 0.5rem;
+        padding-inline: 1rem;
+    }
+}
+
+.panel {
+    border-radius: calc(var(--control-border-radius) * 2);
+    background-color: var(--control-body-area-bg);
+    padding:1rem;
+
+}

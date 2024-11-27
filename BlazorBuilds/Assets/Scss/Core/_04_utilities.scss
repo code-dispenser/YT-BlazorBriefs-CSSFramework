@@ -1,0 +1,93 @@
+﻿
+@use "_01_configuration" as *;
+@use "_02_functions" as *;
+
+                                           //($class-property-map, $start-index: 0, $increment-step: 1,$max-index: 8, $unit-factor: 0.25rem)
+@include generate-key-value-property-classes($padding-class-property-map, 0, $spacing-increment, $spacing-max-index, $spacing-unit-factor);  
+@include generate-key-value-property-classes($margin-class-property-map, 0, $spacing-increment, $spacing-max-index, $spacing-unit-factor);                             
+@include generate-key-value-property-classes($border-radius-class-property-map, 0, $border-radius--increment, $border-radius--max-index, $border-radius--unit-factor);
+
+
+                                         //($bg-shade-classes-map, $percent-increment: 10, $colour-suffix: "-clr",$lighter-prefix: "lighter", $darker-prefix: "darker")
+@include generate-shade-bg-classes-from-map($include-bg-shade-classes-map,$shade-percentage-increment);
+
+
+//You might want to creae another function like the above and use a map so in the configuration file you can say which to include or exclude etc.
+//I left this as an excercise for when you are comfortable with things.
+
+@include generate-opacity-bg-classes($primary-prefix, $opacity-percentage-increment, $colour-suffix: "-clr-trans");
+@include generate-opacity-bg-classes($accent-prefix, $opacity-percentage-increment, $colour-suffix: "-clr-trans");
+@include generate-opacity-bg-classes($neutral-prefix, $opacity-percentage-increment, $colour-suffix: "-clr-trans");
+@include generate-opacity-bg-classes($danger-prefix, $opacity-percentage-increment, $colour-suffix: "-clr-trans");
+@include generate-opacity-bg-classes($warning-prefix, $opacity-percentage-increment, $colour-suffix: "-clr-trans");
+@include generate-opacity-bg-classes($success-prefix, $opacity-percentage-increment, $colour-suffix: "-clr-trans");
+@include generate-opacity-bg-classes($info-prefix, $opacity-percentage-increment, $colour-suffix: "-clr-trans");
+
+@include generate-single-property-class("text-" + $primary-prefix, "color", make-var-function($primary-prefix + $suffix-clr));
+@include generate-single-property-class("text-" + $accent-prefix, "color", make-var-function($accent-prefix + $suffix-clr));
+@include generate-single-property-class("text-" + $neutral-prefix, "color", make-var-function($neutral-prefix + $suffix-clr));
+@include generate-single-property-class("text-" + $danger-prefix, "color", make-var-function($danger-prefix + $suffix-clr));
+@include generate-single-property-class("text-" + $warning-prefix, "color", make-var-function($warning-prefix + $suffix-clr));
+@include generate-single-property-class("text-" + $success-prefix, "color", make-var-function($success-prefix + $suffix-clr));
+@include generate-single-property-class("text-" + $info-prefix, "color", make-var-function($info-prefix + $suffix-clr));
+
+@include generate-font-weight-vars-classes($font-weight-prefix, $make-var: false);
+@include generate-font-size-vars-classes($font-prefix,$base-font-size, $font-scale-factor,$small-prefix, false);
+
+@include generate-single-property-class("overflow-hidden","overflow","hidden");
+@include generate-single-property-class("overflow-auto","overflow","auto");
+@include generate-single-property-class("overflow-scroll","overflow","scroll");
+@include generate-single-property-class("overflow-scroll-X","overflow-x","scroll");
+@include generate-single-property-class("overflow-scroll-y","overflow-y","scroll");
+@include generate-single-property-class("overflow-clip","overflow","clip");
+
+@include generate-single-property-class("elevate-1","box-shadow",$box-shadow-1);
+@include generate-single-property-class("elevate-2","box-shadow",$box-shadow-2);
+@include generate-single-property-class("elevate-3","box-shadow",$box-shadow-3);
+@include generate-single-property-class("elevate-4","box-shadow",$box-shadow-4);
+@include generate-single-property-class("elevate-5","box-shadow",$box-shadow-5);
+
+@include generate-single-property-class("inline-block","display","inline-block");
+@include generate-single-property-class("pointer-curser","cursor","pointer");
+
+$canvas-primary-light: make-mixed-colour($primary-colour, $canvas-light-percent, $light-mix-colour);
+$canvas-primary-dark: make-mixed-colour($primary-colour, $canvas-dark-percent, $dark-mix-colour);
+
+
+$contrast: calculate-contrast($accent-colour,$canvas-primary-light);
+
+.accent-colour-contrast-on-light::after {
+    content: " on primary 95% mix white canvas background: #{$contrast}";
+}
+$contrast: calculate-contrast($accent-colour, $canvas-primary-dark);
+
+.accent-colour-contrast-on-dark::after {
+    content: " on primary 85% mix black canvas background: #{$contrast}";
+}
+
+$contrast: calculate-contrast($accent-colour, $primary-colour);
+
+.accent-colour-contrast-on-primary::after {
+    content: " on primary colour: #{$contrast}";
+}
+
+.fs-label{
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.screen-reader-only {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0; 
+    color: transparent;
+    border: 0;
+    clip-path: inset(50%); 
+    white-space: nowrap; 
+    overflow: hidden;
+}

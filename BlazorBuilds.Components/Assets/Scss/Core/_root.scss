@@ -1,0 +1,179 @@
+﻿@use "_configuration" as *;
+@use "_functions" as *;
+
+@font-face {
+    font-family: "Roboto Flex";
+    src: url("../../wwwroot/assets/css/fonts/RobotoFlex-VariableFont.ttf") format("truetype-variations");
+    font-weight: 100 900;
+    font-stretch: 75% 125%;
+    font-style: oblique -10deg 0deg;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Playwrite";
+    src: url("../../wwwroot/assets/css/fonts/PlaywriteGBS-VariableFont_wght.ttf") format("truetype-variations");
+    font-weight: 100 900;
+    font-stretch: 75% 125%;
+    font-style: oblique -10deg 0deg;
+    font-display: swap;
+}
+
+
+:root {
+    //--test:
+    --disabled-brightness: 75%;
+    --canvas-primary-light:  #{make-mixed-colour($primary-colour, $canvas-light-percent, $light-mix-colour)};
+    --canvas-primary-dark:   #{make-mixed-colour($primary-colour, $canvas-dark-percent, $dark-mix-colour)};
+    --canvas-accent-light:   #{make-mixed-colour($accent-colour, $canvas-light-percent, $light-mix-colour)};
+    --canvas-accent-dark:    #{make-mixed-colour($accent-colour, $canvas-dark-percent, $dark-mix-colour)};
+    --canvas-neutral-light:  #{make-mixed-colour($neutral-colour, $canvas-light-percent, $light-mix-colour)};
+    --canvas-neutral-dark:   #{make-mixed-colour($neutral-colour, $canvas-dark-percent, $dark-mix-colour)};
+    --canvas-danger-light:   #{make-mixed-colour($danger-colour, $canvas-light-percent, $light-mix-colour)};
+    --canvas-danger-dark:    #{make-mixed-colour($danger-colour, $canvas-dark-percent, $dark-mix-colour)};
+    --canvas-warning-light:  #{make-mixed-colour($warning-colour, $canvas-light-percent, $light-mix-colour)};
+    --canvas-warning-dark:   #{make-mixed-colour($warning-colour, $canvas-dark-percent, $dark-mix-colour)};
+    --canvas-success-light:  #{make-mixed-colour($success-colour, $canvas-light-percent, $light-mix-colour)};
+    --canvas-success-dark:   #{make-mixed-colour($success-colour, $canvas-dark-percent, $dark-mix-colour)};
+    --canvas-info-light:     #{make-mixed-colour($info-colour, $canvas-light-percent, $light-mix-colour)};
+    --canvas-info-dark:      #{make-mixed-colour($info-colour, $canvas-dark-percent, $dark-mix-colour)};
+    --divider-clr:           #{make-mixed-colour($neutral-colour, 50%, $light-mix-colour)};
+    --text-primary-contrast: #{get-black-or-white-for-max-contrast($primary-colour)};
+    --text-accent-contrast:  #{get-black-or-white-for-max-contrast($accent-colour)};
+    --text-neutral-contrast: #{get-black-or-white-for-max-contrast($neutral-colour)};
+    --text-danger-contrast:  #{get-black-or-white-for-max-contrast($danger-colour)};
+    --text-warning-contrast: #{get-black-or-white-for-max-contrast($warning-colour)};
+    --text-success-contrast: #{get-black-or-white-for-max-contrast($success-colour)};
+    --text-info-contrast:    #{get-black-or-white-for-max-contrast($info-colour)};
+    --line-height: #{$line-height};
+    --font-family: #{$font-family};
+    --font-base-size: #{$base-font-size};
+    --font-scale-factor: #{$font-scale-factor};
+    --focus-clr: #{$accent-colour};
+    --box-shadow-1: #{$box-shadow-1};
+    --box-shadow-2: #{$box-shadow-2};
+    --box-shadow-3: #{$box-shadow-3};
+    --box-shadow-4: #{$box-shadow-4};
+    --box-shadow-5: #{$box-shadow-5};
+    --box-shadow-on-dark-1: #{$box-shadow-on-dark-1};
+    --box-shadow-on-dark-2: #{$box-shadow-on-dark-2};
+    --box-shadow-on-dark-3: #{$box-shadow-on-dark-3};
+    --box-shadow-on-dark-4: #{$box-shadow-on-dark-4};
+    --box-shadow-on-dark-5: #{$box-shadow-on-dark-5};
+    --fs-label: 0.875rem;
+
+    --control-track-active-clr:  #{make-mixed-colour($primary-colour, 70%, $light-mix-colour)};
+    --control-track-inactive-clr: #{make-mixed-colour($neutral-colour, 80%, $light-mix-colour)};
+       
+    --control-surface: #{make-mixed-colour(#000000, 95%, #FFFFFF)};
+    --control-chrome-clr: #{make-mixed-colour($neutral-colour, 50%, $light-mix-colour)};
+    --control-chrome-highligh-clr: #{$accent-colour};
+    
+    --control-border-clr: #{make-mixed-colour($neutral-colour, 50%, $light-mix-colour)};
+    --control-divider-clr: #{make-mixed-colour($neutral-colour, 50%, $light-mix-colour)};
+
+    --control-heading-area-clr: #{make-mixed-colour($neutral-colour, 90%, $light-mix-colour)};
+    --control-heading-text-clr: #{make-mixed-colour($neutral-colour,$text-dark-mix-percent,$dark-mix-colour)};
+
+    --control-body-area-clr: #{make-mixed-colour($neutral-colour, 95%, $light-mix-colour)};
+    --control-body-text-clr: #{make-mixed-colour($neutral-colour,$text-dark-mix-percent,$dark-mix-colour)};
+    
+    --control-footer-area-clr: #{make-mixed-colour($neutral-colour, 90%, $light-mix-colour)};
+    --control-footer-text-clr: #{make-mixed-colour($neutral-colour,$text-dark-mix-percent,$dark-mix-colour)};
+    
+    //--control-label-size:
+    
+    --control-label--clr: #{make-mixed-colour($neutral-colour,$text-dark-mix-percent,$dark-mix-colour)};
+    --control-hint-brightness: 85%;
+    
+    --control-focus-clr: #{$accent-colour};
+
+    --control-selection-clr: #{make-mixed-colour($accent-colour, 70%, $light-mix-colour)};
+    --control-selection-text-clr:#{make-mixed-colour($neutral-colour,$text-dark-mix-percent,$dark-mix-colour)};
+
+    --control-box-shadow: #{$box-shadow-on-dark-1};
+
+    --control-border-radius: 0.25rem;
+    --control-disabled-brightness: 75%;
+
+
+    @include generate-font-size-vars-classes($font-prefix,$base-font-size, $font-scale-factor,$make-var: true);
+    @include generate-font-weight-vars-classes($font-weight-prefix, $make-var: true);
+    //Colours for the primary colour value
+    @include generate-colour-shade-variables($primary-prefix, $primary-colour, $shade-percentage-increment); //($var-name, $colour-value,$percent-increment:10, $colour-suffix: "-clr", $lighter-prefix: "lighter", $darker-prefix: "darker"
+    @include generate-colour-opacity-variables($primary-prefix, $primary-colour, $opacity-percentage-increment); //($var-name, $colour-value,$percent-increment,$colour-suffix: "-clr-op")
+
+    @include generate-mixed-colour-variable($text-primary-light-name,$primary-colour,$text-light-mix-percent,$light-mix-colour);
+    @include generate-mixed-colour-variable($text-primary-dark-name,$primary-colour,$text-dark-mix-percent,$dark-mix-colour);
+    //Colours for the accent colour value
+    @include generate-colour-shade-variables($accent-prefix, $accent-colour, $shade-percentage-increment);
+    @include generate-colour-opacity-variables($accent-prefix, $accent-colour, $opacity-percentage-increment);
+    @include generate-mixed-colour-variable($text-accent-light-name,$accent-colour,$text-light-mix-percent,$light-mix-colour);
+    @include generate-mixed-colour-variable($text-accent-dark-name,$accent-colour,$text-dark-mix-percent,$dark-mix-colour);
+    //Colours for the neutral colour value
+    @include generate-colour-shade-variables($neutral-prefix, $neutral-colour, $shade-percentage-increment);
+    @include generate-colour-opacity-variables($neutral-prefix, $neutral-colour, 5);
+    @include generate-mixed-colour-variable($text-neutral-light-name,$neutral-colour,$text-light-mix-percent,$light-mix-colour);
+    @include generate-mixed-colour-variable($text-neutral-dark-name,$neutral-colour,$text-dark-mix-percent,$dark-mix-colour);
+    //Colours for the danger colour value
+    @include generate-colour-shade-variables($danger-prefix, $danger-colour, $shade-percentage-increment);
+    @include generate-colour-opacity-variables($danger-prefix, $danger-colour, $opacity-percentage-increment);
+    @include generate-mixed-colour-variable($text-danger-light-name,$danger-colour,$text-light-mix-percent,$light-mix-colour);
+    @include generate-mixed-colour-variable($text-danger-dark-name,$danger-colour,$text-dark-mix-percent,$dark-mix-colour);
+    //Colours for the warning colour value
+    @include generate-colour-shade-variables($warning-prefix, $warning-colour, $shade-percentage-increment);
+    @include generate-colour-opacity-variables($warning-prefix, $warning-colour, $opacity-percentage-increment);
+    @include generate-mixed-colour-variable($text-warning-light-name,$warning-colour,$text-light-mix-percent,$light-mix-colour);
+    @include generate-mixed-colour-variable($text-warning-dark-name,$warning-colour,$text-dark-mix-percent,$dark-mix-colour);
+    //Colours for the sucess colour value
+    @include generate-colour-shade-variables($success-prefix, $success-colour, $shade-percentage-increment);
+    @include generate-colour-opacity-variables($success-prefix, $success-colour, $opacity-percentage-increment);
+    @include generate-mixed-colour-variable($text-success-light-name,$success-colour,$text-light-mix-percent,$light-mix-colour);
+    @include generate-mixed-colour-variable($text-success-dark-name,$success-colour,$text-dark-mix-percent,$dark-mix-colour);
+    //Colours for the info colour value
+    @include generate-colour-shade-variables($info-prefix, $info-colour, $shade-percentage-increment);
+    @include generate-colour-opacity-variables($info-prefix, $info-colour, $opacity-percentage-increment);
+    @include generate-mixed-colour-variable($text-info-light-name,$info-colour,$text-light-mix-percent,$light-mix-colour);
+    @include generate-mixed-colour-variable($text-info-dark-name,$info-colour,$text-dark-mix-percent,$dark-mix-colour);
+}
+
+html {
+
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+h1, h2, h3, h4, h5, h6 {
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+    outline: none;
+    border: none;
+}
+p {
+    padding: 0;
+    margin: 0;
+}
+ul, li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    list-style-type:none;
+}
+
+body {
+    height: 100%;
+    text-rendering: optimizeSpeed;
+    line-height: var(--line-height);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    font-family: var(--font-family);
+    font-weight: var(--fw-400);
+    overflow:hidden;
+}
+
+

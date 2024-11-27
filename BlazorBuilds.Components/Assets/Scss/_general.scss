@@ -1,0 +1,37 @@
+﻿body {
+    min-height: 100vh;
+    color: var(--text-neutral-dark);
+    background-color: var(--canvas-neutral-light);
+    margin: 0;
+    padding: 0;
+    --focus-clr: var(--accent-clr-darker-20);
+    --control-body-area-clr: var(--canvas-primary-light);
+    --control-heading-area-clr: var(--primary-clr-lighter-90);
+    --control-footer-area-clr: var(--primary-clr-lighter-90);
+}
+
+body:has(div > header > button.switch[aria-checked="true"]) {
+    /* Dark mode styles when the switch is active */
+
+
+    color: var(--text-neutral-light);
+    background-color: var(--canvas-primary-dark);
+
+
+    --control-body-area-clr: var(--neutral-clr-trans-85);
+    --control-heading-area-clr: var(--neutral-clr-trans-75);
+    --control-footer-area-clr: var(--neutral-clr-trans-75);
+
+   
+    --control-surface: var(--neutral-clr-darker-50);
+
+    --box-shadow-1: var(--box-shadow-on-dark-1);
+    --box-shadow-2: var(--box-shadow-on-dark-2);
+    --focus-clr: var(--accent-clr);
+}
+
+[data-static=dark] {
+    --focus-clr: var(--accent-clr);
+}
+
+

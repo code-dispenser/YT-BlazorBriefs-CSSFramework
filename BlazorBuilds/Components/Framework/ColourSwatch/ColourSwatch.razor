@@ -1,0 +1,72 @@
+﻿<div class="flex-content flex-content--columns gaps-4" style="max-width:608px;">
+    <h1>Available <span class="text-@SassColourName.ToLower()">@SassColourName</span> Colours</h1>
+    <p class="flex-content align-items-center gaps-2">
+        <span class="swatch-box swatch-box--small @($"{SassColourName.ToLower()}-{(String.IsNullOrWhiteSpace(BackgroundName) ? "bg" : BackgroundName.ToLower())}")"></span>
+        @($"{SassColourName} colour with lighter and darker shades in {ShadePercentIncrements}% increments")
+    </p>
+    <div class="flex-content flex-content--wrap">
+
+        @for (int index = 1; index < ShadePercentIncrements * 2; index++)
+        {
+            @if (index < ShadePercentIncrements)
+            {
+                <span class="flex-content align-items-center justify-content-center @($"{ShadeClassLighterName.ToLower()}-{100 - (index * ShadePercentIncrements)}")" style="@_swatchBoxStyle"></span>
+                continue;
+            }
+
+            @if (index > ShadePercentIncrements)
+            {
+                <span class="@($"{ShadeClassDarkerName.ToLower()}-{ShadePercentIncrements * (index - ShadePercentIncrements)}")" style="@_swatchBoxStyle"></span>
+                continue;
+            }
+
+            <span class="swatch-box @($"{SassColourName.ToLower()}-{(String.IsNullOrWhiteSpace(BackgroundName) ? "bg" : BackgroundName.ToLower())}")"
+                  style="outline-offset:-5px; outline-width:5px; outline-style:solid; outline-color:white; @_swatchBoxStyle"></span>
+        }
+
+    </div>
+
+    <p class="flex-content align-items-center gaps-2">
+        <span class="swatch-box swatch-box--small @($"{SassColourName.ToLower()}-{(String.IsNullOrWhiteSpace(BackgroundName) ? "bg" : BackgroundName.ToLower())}")"></span> 
+        @($"{SassColourName} colour opacities in {TransPrecentIncrements}% increments")
+    </p>
+    <div class="flex-content flex-content--wrap">
+        @for (int index = 1; index < 100 / TransPrecentIncrements; index++)
+        {
+            <span class="@($"{TransparencyClassName.ToLower()}-{100-(index * TransPrecentIncrements)}")" style="@_swatchBoxStyle"></span>
+        }
+    </div>
+    <p>
+        @SassColourName colour mixed with white and black for text and background canvas.
+    </p>
+    <div class="flex-content flex-content--wrap justify-content-between">
+        <div class="flex-content justify-content-center align-items-center" style="background-color:var(@CanvasLightVarName.ToLower()); flex-grow:1; height:32px;">
+            <span style="color:var(@TextDarkVarName);">Mixed @CanvasLightMixPercent% white for background mixed @TextDarkMixPercent% black for text</span>
+        </div>
+
+        <div class="flex-content justify-content-center align-items-center" style="background-color:var(@CanvasDarkVarName.ToLower());flex-grow:1; height:32px;">
+            <span style="color:var(@TextLightVarName.ToLower());">Mixed @CanvasDarkMixPercent% black for background mixed @TextLightMixPercent% white for text</span>
+        </div>
+    </div>
+
+</div>
+@code {
+    [Parameter, EditorRequired] public string SassColourName         { get; set; } = default!;
+    [Parameter, EditorRequired] public int    ShadePercentIncrements { get; set; } = GlobalValues.Shade_Percent_Increments_10;
+    [Parameter, EditorRequired] public int    TransPrecentIncrements { get; set; } = GlobalValues.Trans_Precent_Increments_5;
+    [Parameter, EditorRequired] public int    TextLightMixPercent    { get; set; } = GlobalValues.Text_Light_Mix_Percent_90;
+    [Parameter, EditorRequired] public int    TextDarkMixPercent     { get; set; } = GlobalValues.Text_Dark_Mix_Percent_80;
+    [Parameter, EditorRequired] public int    CanvasLightMixPercent  { get; set; } = GlobalValues.Canvas_Light_Mix_Percent_95;
+    [Parameter, EditorRequired] public int    CanvasDarkMixPercent   { get; set; } = GlobalValues.Canvas_Dark_Mix_Percent_85;
+    [Parameter, EditorRequired] public string ShadeClassLighterName  { get; set; } = default!;
+    [Parameter, EditorRequired] public string ShadeClassDarkerName   { get; set; } = default!;
+    [Parameter, EditorRequired] public string CanvasDarkVarName      { get; set; } = default!;
+    [Parameter, EditorRequired] public string CanvasLightVarName     { get; set; } = default!;
+    [Parameter, EditorRequired] public string TextLightVarName       { get; set; } = default!;
+    [Parameter, EditorRequired] public string TextDarkVarName        { get; set; } = default!;
+    [Parameter, EditorRequired] public string TransparencyClassName  { get; set; } = default!;
+    [Parameter]                 public string BackgroundName         { get; set; } = GlobalValues.Background_Prefix;
+
+    private string _swatchBoxStyle = "width:32px;height:32px;";
+    
+}

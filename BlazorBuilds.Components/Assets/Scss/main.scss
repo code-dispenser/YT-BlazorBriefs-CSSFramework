@@ -1,0 +1,15 @@
+﻿
+//This file configures what file outputs you want in the final css.
+
+@use "core/_root";
+@use "core/_containers";
+@use "core/_boxes"; 
+@use "core/_buttons";
+@use "core/_svg-icons";
+@use "core/_utilities";
+
+@use "_app-layout"; //layouts for choice would be added to core framework
+
+@use "_switch";         
+@use "_general";
+

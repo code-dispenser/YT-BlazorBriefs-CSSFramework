@@ -1,0 +1,79 @@
+﻿.switch {
+    --animation-ms: 100ms;
+    --rocker-track: var(--control-track-inactive-bg);
+    --rocker-track-on: var(--control-track-active-bg);
+    --rocker-bg-clr: var(--control-chrome-bg); 
+    margin: 0;
+    padding: 0;
+    border: none;
+    pointer-events: none;
+    outline: none;
+    font: inherit;
+    background-color: transparent;
+    color: inherit;
+
+    &__label {
+        font-size: 1rem;
+        padding-right: 0.5rem;
+    }
+
+    &__text {
+        font-size: 1rem;
+        padding-left: 0.5rem;
+    }
+
+    &__rocker {
+        display: inline-block;
+        position: relative;
+        background-color: var(--rocker-track);
+        border-radius: 1rem;
+        height: 1rem;
+        vertical-align: text-bottom;
+        width: 3rem;
+        cursor: pointer;
+        pointer-events: all;
+
+        &::before {
+            content: "";
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            background-color: var(--rocker-bg-clr);
+            position: absolute;
+            left: -0.125rem;
+            top: -0.125rem;
+            box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.6);
+        }
+    }
+
+    &:focus-within &__rocker {
+        outline: 2px solid var(--focus-clr);
+        outline-offset: 0.3rem;
+    }
+
+    &__rocker:hover {
+        outline: 2px solid var(--focus-clr);
+        outline-offset: 0.3rem;
+    }
+
+    &[aria-checked="true"] > &__rocker::before {
+        left: 1.875rem;
+    }
+
+    &[aria-checked="true"] > &__rocker {
+        background-color: var(--rocker-track-on);
+        transition: background-color var(--animation-ms) linear;
+    }
+
+    &[aria-checked="false"] > &__rocker {
+        transition: background-color var(--animation-ms) linear;
+    }
+
+    &[aria-disabled="true"] {
+        filter: brightness(var(--disabled-brightness));
+    }
+
+    &[aria-disabled="true"] > &__rocker {
+        cursor: not-allowed;
+    }
+}

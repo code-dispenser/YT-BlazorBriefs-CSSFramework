@@ -1,0 +1,302 @@
+﻿@use 'sass:math';
+@use "sass:color";
+@use "_01_configuration" as *;
+//
+// Outputs the grid columns and media queries with the grid column classes for that size.
+// Calls the psuedo private mixin _column-classes to output the column classes
+//
+@mixin generate-grid-column-classes($breakpoint-map, $number-of-columns: 12, $grid-container-class: ".grid-content") {
+    @each $key, $value in $breakpoint-map {
+
+        @if $value == 0px {
+            @include _column-classes($key,$number-of-columns,$grid-container-class);
+        }
+        @else {
+            @media (min-width: $value) {
+                @include _column-classes($key,$number-of-columns,$grid-container-class);
+            }
+        }
+    }
+}
+//
+// Outputs the column classes for the breakpoint grid system.
+// As we are using css grid we can just span to say how many columns the col class with take.
+//
+@mixin _column-classes($key-size, $number-of-columns: 12, $grid-container-class: "") {
+
+    @for $counter from 1 through $number-of-columns {
+        #{$grid-container-class} .col-#{$key-size}-#{$counter} {
+            grid-column: span $counter;
+        }
+    }
+}
+//
+// Depending on the flag make-var, the mixin will either output css variables or classes. Th partial file root uses the variables,
+// utilities requests the classes
+//
+@mixin generate-font-size-vars-classes($prefix: "fs", $base-size: 1rem, $scale-factor: 1.25,$small-prefix: "sm", $make-var: true ) {
+    $size: $base-size;
+
+    @for $counter from 1 through 3 {
+        $size: math.div($size, $scale-factor);
+
+        @if $make-var == true {
+            --#{$prefix}-#{$small-prefix}-#{$counter}: #{math.div(math.round($size * 100), 100)};
+        }
+        @else {
+            .#{$prefix}-#{$small-prefix}-#{$counter} {
+                font-size: #{math.div(math.round($size * 100), 100)};
+            }
+        }
+    }
+
+    $size: $base-size;
+    $line-size: $base-line-height;
+
+    @for $counter from 1 through 9 {
+        @if $make-var == true {
+            --#{$prefix}-#{$counter}: #{math.div(math.round($size * 100), 100)};
+        }
+        @else {
+            .#{$prefix}-#{$counter} {
+                font-size: #{math.div(math.round($size * 100), 100)};
+            }
+        }
+
+        $size: $size * $scale-factor;
+    }
+}
+//
+// Outputs the font weight variables and classes
+//
+@mixin generate-font-weight-vars-classes($prefix: "fw", $make-var: true) {
+    @for $counter from 1 through 9 {
+        $font-weight: $counter * 100;
+
+        @if $make-var==true {
+            --#{$prefix}-#{$font-weight}: #{$font-weight};
+        }
+        @else {
+            .#{$prefix}-#{$font-weight} {
+                font-weight: #{$font-weight};
+            }
+        }
+    }
+}
+//
+// Outputs the spacing type classes using the maps (think c# dictionary), for the margin, padding, border radius classes etc
+//
+@mixin generate-key-value-property-classes($class-property-map, $start-index: 0, $increment-step: 1,$max-index: 8, $unit-factor: 0.25rem) {
+
+    $unit: $unit-factor;
+    
+    @each $key, $property-name in $class-property-map {
+       
+        $index: $start-index;
+       
+        @while $index <= $max-index {
+
+             @if $index == 0 {$unit: 0;} else {$unit:$unit-factor;}
+
+            .#{$key}-#{$index}{#{$property-name}: $index * $unit;}
+
+             $index: $index + $increment-step;
+        }
+    }
+}
+//
+// Used to output all the colour shade variables, called from the root partial file.
+//
+@mixin generate-colour-shade-variables($var-name, $colour-value,$percent-increment: 10, $colour-suffix: $suffix-clr, $lighter-prefix: "lighter", $darker-prefix: "darker") {
+
+    $counter: 1;
+    $percent: math.percentage(math.div($percent-increment,100));
+
+    $var-name: $var-name + $colour-suffix;
+    --#{$var-name}: #{$colour-value};
+
+    @while $counter * $percent-increment < 100% {
+
+        $lighten-color: color.mix(#ffffff,$colour-value, $counter * $percent);
+        $darken-color: color.mix(#000000,$colour-value, $counter * $percent);
+
+        --#{$var-name}-#{$lighter-prefix}-#{$counter *  $percent-increment}: #{$lighten-color};
+        --#{$var-name}-#{$darker-prefix}-#{$counter *  $percent-increment}: #{$darken-color};
+
+        $counter: $counter + 1;
+    }
+}
+//
+// Outpus all of the colour shade bg classes that uses the variables created from the mixin above, called from the utilities file
+// Maybe should merge these two and use a flag to say what to output
+//
+@mixin generate-shade-bg-classes($var-name, $percent-increment: 10, $colour-suffix: $suffix-clr, $lighter-prefix: "lighter", $darker-prefix: "darker") {
+    $counter: 1;
+    $percent: math.percentage(math.div($percent-increment,100));
+
+    .#{$var-name}-bg {
+        background-color: var(--#{$var-name}#{$colour-suffix});
+    }
+
+    @while $counter * $percent-increment < 100% {
+        .#{$var-name}-bg-#{$lighter-prefix}-#{$counter * $percent-increment} {
+            background-color: var(--#{$var-name}#{$colour-suffix}-#{$lighter-prefix}-#{$counter * $percent-increment});
+        }
+
+        .#{$var-name}-bg-#{$darker-prefix}-#{$counter * $percent-increment} {
+            background-color: var(--#{$var-name}#{$colour-suffix}-#{$darker-prefix}-#{$counter * $percent-increment});
+        }
+
+        $counter: $counter + 1;
+    }
+}
+//
+// Instead of calling the above mulitple times, this mixin is called from utilities using the map variable that allows you to exclude the colours.
+//
+@mixin generate-shade-bg-classes-from-map($bg-shade-classes-map, $percent-increment: 10, $colour-suffix: $suffix-clr,$lighter-prefix: "lighter", $darker-prefix: "darker") {
+    @each $key, $value in $bg-shade-classes-map {
+        @if $value == true {
+            @include generate-shade-bg-classes($key,$percent-increment,$colour-suffix,$lighter-prefix: "lighter", $darker-prefix: "darker");
+        }
+    }
+}
+//
+// Outputs a variable with the mixed colour value based on weights see the sass docs, 
+// but think higher the mix percentage of the mixed colour, gets more of that colour and the other gets lexs
+// i.e mix-percent is 10 then colour-value is 90% of the mixture and mix-colour is 10% fo the mixture.
+// mix-percent is 70% then the colour-value is 30% of the mixture and mix-colour is 70% of the mixture.
+//
+@mixin generate-mixed-colour-variable($var-name, $colour-value, $mix-percent,$mix-colour) {
+
+    $mixed-value: make-mixed-colour($colour-value, $mix-percent, $mix-colour);
+    --#{$var-name}: #{$mixed-value};
+}
+//
+// returns a mixed colour value 
+//
+@function make-mixed-colour($colour-value, $mix-percent, $mix-colour){@return color.mix($mix-colour, $colour-value, $mix-percent);}
+
+//
+// outputs variables with the opacity, reversed to use name trans (transparency) higher the number the more transparent it is
+//
+@mixin generate-colour-opacity-variables($var-name, $colour-value,$percent-increment, $colour-suffix: "-clr-trans") {
+
+    $counter: 1;
+    $decimal-value: math.div($percent-increment, 100);
+    $reversecount: math.div(1, $decimal-value);
+    $var-name: $var-name + $colour-suffix;
+
+    @while $counter * $decimal-value < 1 {
+
+        $opacity-colour: rgba($colour-value, $counter * $decimal-value);
+
+        --#{$var-name}-#{($reversecount - $counter) * $percent-increment}: #{$opacity-colour};
+
+        $counter: $counter + 1;
+    }
+}
+//
+// Outputs the opacity/transparencies using the variable names from above, maybe combine these with a flag as what to output 
+//
+@mixin generate-opacity-bg-classes($var-name, $percent-increment, $colour-suffix: "-clr-trans") {
+
+    $counter:       1;
+    $decimal-value: math.div($percent-increment, 100);
+    $reversecount:  math.div(1, $decimal-value);
+    $className:     $var-name + "-bg-trans-";  
+    $var-name:      $var-name + $colour-suffix;
+
+    @while $counter * $decimal-value < 1 {
+        $count: ($reversecount - $counter) * $percent-increment;
+
+        .#{$className}#{$count} {background-color: var(--#{$var-name}-#{$count});}
+
+        $counter: $counter + 1;
+    }
+}
+//
+// Just outputs a single property valued css class
+//
+@mixin generate-single-property-class($class-name, $property-name, $property-value,) {
+    
+    .#{$class-name} {#{$property-name}: #{$property-value};}
+}
+
+
+@mixin media-device-sm($width: min-width) {
+    @media ($width:$device-sm-min-width ) {
+        @content;
+    }
+}
+
+@mixin media-device-md($width: min-width) {
+    @media ($width:$device-md-min-width ) {
+        @content;
+    }
+}
+
+@mixin media-device-lg($width: min-width) {
+    @media ($width:$device-lg-min-width ) {
+        @content;
+    }
+}
+
+@mixin media-device-xl($width: min-width) {
+    @media (width:$device-xl-min-width ) {
+        @content;
+    }
+}
+//
+// Helper that retuns a variable declaration
+//
+@function make-var-function($var-name) {
+    @return "var(--" + $var-name + ")";
+}
+//
+// Returns the colour value black or white dependant on which has the highest 
+// contrast ratio when placed with a the provided colour value.
+//
+@function get-black-or-white-for-max-contrast($colour-value){
+
+    $white: #FFFFFF;
+    $black: #000000;
+    $contrast1: calculate-contrast($colour-value, $white);
+    $contrast2: calculate-contrast($colour-value, $black);
+
+    @if $contrast1 >= $contrast2{
+        @return $white;
+    }
+    @else{
+        @return $black;
+    }
+}
+//
+// Returns the linear value for the colour channel. I got the math from accessiblity sites
+// dont ask me to explain it or where the figures used come from as I have not idea. I just wanted a function
+// I could use to check the contrast ratio of the accent colour if used for focus rings
+//
+@function rgb-to-linear($colour-value) {
+
+    $colour-value: math.div($colour-value,255);
+
+    @if $colour-value <= 0.04045 {
+        @return math.div($colour-value, 12.92);
+    }
+    @else {
+        @return math.pow(math.div($colour-value + 0.055, 1.055), 2.4);
+    }
+}
+//
+// Function that returns the contrast ratio for the colours provided, uses the linear function above
+//
+@function calculate-contrast($colour-value1, $colour-value2) {
+
+    $luminance1: (0.2126 * rgb-to-linear(red($colour-value1))) + (0.7152 * rgb-to-linear(green($colour-value1))) + (0.0722 * rgb-to-linear(blue($colour-value1)));
+    $luminance2: (0.2126 * rgb-to-linear(red($colour-value2))) + (0.7152 * rgb-to-linear(green($colour-value2))) + (0.0722 * rgb-to-linear(blue($colour-value2)));
+
+    $contrast: math.div((math.max($luminance1, $luminance2) + 0.05), (math.min($luminance1, $luminance2) + 0.05));
+
+    @return math.div(math.round($contrast * 100), 100);
+}
+
+

@@ -1,0 +1,40 @@
+﻿body {
+    min-height: 100vh;
+    color: var(--text-neutral-dark);
+    background-color: var(--canvas-neutral-light);
+    margin: 0;
+    padding: 0;
+    --focus-clr: var(--accent-clr-darker-20); //needed slightly darker accent on light background to meet accessibility contrast ratio for the yellowish accent colour.
+
+    --control-body-area-bg: var(--canvas-primary-light);
+    --control-heading-area-bg: var(--primary-clr-lighter-90);
+    --control-footer-area-bg: var(--primary-clr-lighter-90);
+
+
+}
+
+body:has(div > header > button.switch[aria-checked="true"]) {
+    /* Dark mode styles when the switch is active */
+
+
+    color: var(--text-neutral-light);
+    background-color: var(--canvas-primary-dark);
+    //background-color: var(--canvas-neutral-dark);
+
+    --control-body-area-bg: var(--neutral-clr-trans-85);
+    --control-heading-area-bg: var(--neutral-clr-trans-75);
+    --control-footer-area-bg: var(--neutral-clr-trans-75);
+    --control-surface-bg: var(--neutral-clr-darker-50);
+    --box-shadow-1: var(--box-shadow-on-dark-1);
+    --box-shadow-2: var(--box-shadow-on-dark-2);
+    --focus-clr: var(--accent-clr);
+
+    & #app__navigation {
+        color: var(--text-primary-light);
+    }
+}
+
+[data-static=dark] {
+    --focus-clr: var(--accent-clr);
+}
+

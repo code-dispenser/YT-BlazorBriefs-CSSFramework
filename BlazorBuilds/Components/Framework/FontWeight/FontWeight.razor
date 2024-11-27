@@ -1,0 +1,21 @@
+﻿
+<div class="flex-content flex-content--columns gaps-4">
+    <h1>Available Font Weights</h1>
+    @for (int index = FontWeightFactor; index <= FontWeightCount * FontWeightFactor; index += FontWeightFactor)
+    {
+        var className = $"{FontWeightPrefix}-{index}";
+        <div>
+            <p class="@FontLabelClass">Class: @className</p>
+            <span class="@className fs-5">@FontWeightText</span>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired] public string FontWeightPrefix { get; set; } = GlobalValues.Font_Weight_Prefix;
+    [Parameter, EditorRequired] public int    FontWeightFactor { get; set; } = GlobalValues.Font_Weight_Factor;
+    [Parameter, EditorRequired] public int    FontWeightCount  { get; set; } = GlobalValues.Font_Weight_Count;
+    [Parameter, EditorRequired] public string FontLabelClass   { get; set; } = GlobalValues.Font_Label_Class;
+    [Parameter, EditorRequired] public string FontSizeClass    { get; set; } = "fs-4";
+    [Parameter, EditorRequired] public string FontWeightText   { get; set; } = GlobalValues.Font_Size_Text;
+}

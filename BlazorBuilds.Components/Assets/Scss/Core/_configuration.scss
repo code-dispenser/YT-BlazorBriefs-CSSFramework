@@ -1,0 +1,132 @@
+﻿
+//Comments using the multiline syntax seem to get included in the output single line style does not.
+
+// Use this file to define SCSS variables which cannot be changed at runtime like css variables. 
+// These variables are useds by the preprocessor when generating the css. . 
+// This file configures what will be proceesed
+
+$suffix-clr: "-clr";
+
+$lighter-prefix: "lighter";
+$darker-prefix: "darker";
+
+$primary-colour:#8e4585;
+//$primary-colour: #05445e;
+
+$primary-prefix: "primary";
+$text-primary-light-name: "text-primary-light";
+$text-primary-dark-name:  "text-primary-dark";
+
+$accent-colour:#a2e898;
+//$accent-colour: #C59E01; 
+
+$accent-prefix: "accent";
+$text-accent-light-name: "text-accent-light";
+$text-accent-dark-name:  "text-accent-dark";
+
+$neutral-colour: #808080;
+$neutral-prefix: "neutral";
+$text-neutral-light-name: "text-neutral-light";
+$text-neutral-dark-name:  "text-neutral-dark";
+
+$info-colour: #5bc0de;
+$info-prefix: "info";
+$text-info-light-name: "text-info-light";
+$text-info-dark-name:  "text-info-dark";
+
+$success-colour: #28a745;
+$success-prefix: "success";
+$text-success-light-name: "text-success-light";
+$text-success-dark-name:  "text-success-dark";
+
+$warning-colour: #FFBF00;
+$warning-prefix: "warning";
+$text-warning-light-name: "text-warning-light";
+$text-warning-dark-name:  "text-warning-dark";
+
+$danger-colour: #d92d2b;
+$danger-prefix: "danger";
+$text-danger-light-name: "text-danger-light";
+$text-danger-dark-name:  "text-danger-dark";
+
+$canvas-light-percent: 95%;
+$light-mix-colour: #ffffff;
+$text-light-mix-percent: 90%;
+
+$canvas-dark-percent: 65%;
+$dark-mix-colour: #000000;
+$text-dark-mix-percent: 80%;
+
+$shade-percentage-increment: 10;
+$opacity-percentage-increment: 10;
+
+$spacing-max-index: 8;
+$spacing-increment: 1;
+$spacing-unit-factor: 0.25rem;
+
+$border-radius--max-index: 4;
+$border-radius--increment: 1;
+$border-radius--unit-factor: 0.25rem;
+$border-radius-default: 0.25rem;
+
+$gaps-max-index: 8;
+$gaps-increment: 1;
+$gaps-unit-factor: 0.25rem;
+$gap-default: 1rem;
+$padding-default: 1rem;
+$margin-default: 1rem;
+
+$margin-class-property-map: ("m-all":"margin","m-top":"margin-top","m-left":"margin-left",
+                           "m-right":"margin-right","m-bottom":"margin-bottom",
+                           "m-block":"margin-block","m-inline":"margin-inline");
+
+$padding-class-property-map: ("pad-all":"padding","pad-top":"padding-top","pad-left":"padding-left", 
+                            "pad-right":"padding-right","pad-bottom":"padding-bottom", 
+                            "pad-block":"padding-block","pad-inline":"padding-inline");
+
+$border-radius-class-property-map: ("radius-all":"border-radius","radius-top-left":"border-top-left-radius", 
+                                  "radius-top-right":"border-top-right-radius","radius-bottom-left":"border-bottom-left-radius", 
+                                  "radius-bottom-right":"border-bottom-right-radius");
+
+$gap-class-property-map: ("gaps":"gap","row-gap":"row-gap","column-gap":"column-gap");
+
+
+$font-family: '"Roboto Flex", sans-serif';
+$font-weight-prefix: "fw";
+$font-prefix:"fs";
+$base-font-size: 1rem;
+$font-scale-factor: 1.25;
+$line-height: 1.5;
+
+$grid-container-class-name: ".grid-content";//(keep the dot) scoping column classes to it to avoid issues with any other grids using the col spans
+$grid-columns: 12;
+
+$device-sm-min-width: 576px;
+$device-md-min-width: 768px;
+$device-lg-min-width: 992px;
+$device-xl-min-width: 1280px;
+$device-xxl-min-width: 1536px;
+//Keep these in sync
+$breakpoints: ("xs": 0px, "sm": 576px, "md": 768px, "lg": 992px, "xl": 1280px, "xxl": 1536px);
+
+$app-header-height: 4rem;
+$app-footer-height: 3rem;
+$app-nav-max-width: 16rem;
+$app-nav-min-width: 4rem;
+
+$box-shadow-1: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+$box-shadow-2: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.2);
+$box-shadow-3: 0 8px 17px 2px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+$box-shadow-4: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -7px rgba(0,0,0,0.2);
+$box-shadow-5: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);
+
+$box-shadow-on-dark-1: 0 2px 2px 0 rgba(185,185,185,0.74), 0 3px 1px -2px rgba(185,185,185,0.62), 0 1px 5px 0 rgba(0,0,0,0.9);
+$box-shadow-on-dark-2: 0 4px 5px 0 rgba(185,185,185,0.74), 0 1px 10px 0   rgba(185,185,185,0.62), 0 2px 4px -1px rgba(0,0,0,0.9);
+$box-shadow-on-dark-3: 0 8px 17px 2px  rgba(185,185,185,0.74), 0 3px 14px 2px rgba(185,185,185,0.62), 0 5px 5px -3px rgba(0,0,0,0.9);
+$box-shadow-on-dark-4: 0 16px 24px 2px rgba(185,185,185,0.74), 0 6px 30px 5px rgba(185,185,185,0.62), 0 8px 10px -7px rgba(0,0,0,0.9);
+$box-shadow-on-dark-5: 0 24px 38px 3px rgba(185,185,185,0.74), 0 9px 46px 8px rgba(185,185,185,0.62), 0 11px 15px -7px rgba(0,0,0,0.9);
+
+//Change the value to false on items to exclude them from having the background colour classes generated in the _utilities.scss file
+$include-bg-shade-classes-map: ($primary-prefix:true, $accent-prefix:true, $neutral-prefix:true, $danger-prefix:true,$warning-prefix: true, $success-prefix:true,$info-prefix:true);
+$include-full-colour-classes-map: ($primary-prefix:true, $accent-prefix:true, $neutral-prefix:true, $danger-prefix:true,$warning-prefix: true, $success-prefix:true,$info-prefix:true)
+

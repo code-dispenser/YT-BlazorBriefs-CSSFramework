@@ -1,0 +1,231 @@
+﻿@use 'sass:math';
+@use "sass:color";
+@use "_configuration" as *;
+
+@mixin generate-grid-column-classes($breakpoint-map, $number-of-columns: 12, $grid-container-class: ".grid-content") {
+    @each $key, $value in $breakpoint-map {
+
+        @if $value == 0px {
+            @include _column-classes($key,$number-of-columns,$grid-container-class);
+        }
+        @else {
+            @media (min-width: $value) {
+                @include _column-classes($key,$number-of-columns,$grid-container-class);
+            }
+        }
+    }
+}
+
+@mixin _column-classes($key-size, $number-of-columns: 12, $grid-container-class: "") {
+
+    @for $counter from 1 through $number-of-columns {
+        #{$grid-container-class} .col-#{$key-size}-#{$counter} {
+            grid-column: span $counter;
+        }
+    }
+}
+
+@mixin generate-font-size-vars-classes($prefix: "fs", $base-size: 1rem, $scale-factor: 1.25, $small-prefix: "sm", $make-var: true ) {
+    $size: $base-size;
+
+    @for $counter from 1 through 3 {
+        $size: math.div($size, $scale-factor);
+
+        @if $make-var == true {
+            --#{$prefix}-#{$small-prefix}-#{$counter}: #{math.div(math.round($size * 100), 100)};
+        }
+        @else {
+            .#{$prefix}-#{$small-prefix}-#{$counter} {font-size: #{math.div(math.round($size * 100), 100)};}
+        }
+    }
+
+    $size: $base-size;
+
+    @for $counter from 1 through 9 {
+        @if $make-var == true {
+            --#{$prefix}-#{$counter}: #{math.div(math.round($size * 100), 100)};
+        }
+        @else {
+            .#{$prefix}-#{$counter} {font-size: #{math.div(math.round($size * 100), 100)}; }
+        }
+
+        $size: $size * $scale-factor;
+    }
+}
+
+@mixin generate-font-weight-vars-classes($prefix: "fw", $make-var: true) {
+    @for $counter from 1 through 9 {
+        $font-weight: $counter * 100;
+        @if $make-var==true{
+            --#{$prefix}-#{$font-weight}: #{$font-weight};
+        }
+        @else{
+            .#{$prefix}-#{$font-weight}{font-weight: #{$font-weight};} 
+        }
+    }
+}
+@mixin generate-key-value-property-classes($class-property-map, $start-index: 0, $increment-step: 1,$max-index: 8, $unit-factor: 0.25rem) {
+
+    $unit: $unit-factor;
+   
+    @each $key, $property-name in $class-property-map {
+       
+        $index: $start-index;
+       
+        @while $index <= $max-index {
+
+             @if $index == 0 {$unit: 0;} else {$unit:$unit-factor;}
+
+            .#{$key}-#{$index}{#{$property-name}: $index * $unit;}
+
+             $index: $index + $increment-step;
+        }
+    }
+}
+
+
+@mixin generate-colour-shade-variables($var-name, $colour-value,$percent-increment: 10, $colour-suffix: $suffix-clr, $lighter-prefix: "lighter", $darker-prefix: "darker") {
+
+    $counter: 1;
+    $percent: math.percentage(math.div($percent-increment,100));
+
+    $var-name: $var-name + $colour-suffix;
+    --#{$var-name}: #{$colour-value};
+
+    @while $counter * $percent-increment < 100% {
+
+        $lighten-color: color.mix(#ffffff,$colour-value, $counter * $percent);
+        $darken-color: color.mix(#000000,$colour-value, $counter * $percent);
+
+        --#{$var-name}-#{$lighter-prefix}-#{$counter *  $percent-increment}: #{$lighten-color};
+        --#{$var-name}-#{$darker-prefix}-#{$counter *  $percent-increment}: #{$darken-color};
+
+        $counter: $counter + 1;
+    }
+}
+
+@mixin generate-shade-bg-classes($var-name, $percent-increment: 10, $colour-suffix: $suffix-clr, $lighter-prefix: "lighter", $darker-prefix: "darker") {
+    $counter: 1;
+    $percent: math.percentage(math.div($percent-increment,100));
+
+    .#{$var-name}-bg {
+        background-color: var(--#{$var-name}#{$colour-suffix});
+    }
+
+    @while $counter * $percent-increment < 100% {
+        .#{$var-name}-bg-#{$lighter-prefix}-#{$counter * $percent-increment} {
+            background-color: var(--#{$var-name}#{$colour-suffix}-#{$lighter-prefix}-#{$counter * $percent-increment});
+        }
+
+        .#{$var-name}-bg-#{$darker-prefix}-#{$counter * $percent-increment} {
+            background-color: var(--#{$var-name}#{$colour-suffix}-#{$darker-prefix}-#{$counter * $percent-increment});
+        }
+
+        $counter: $counter + 1;
+    }
+}
+
+@mixin generate-shade-bg-classes-from-map($bg-shade-classes-map, $percent-increment: 10, $colour-suffix: $suffix-clr,$lighter-prefix: "lighter", $darker-prefix: "darker") {
+    @each $key, $value in $bg-shade-classes-map {
+        @if $value == true {
+            @include generate-shade-bg-classes($key,$percent-increment,$colour-suffix: "-clr",$lighter-prefix: "lighter", $darker-prefix: "darker");
+        }
+    }
+}
+
+
+@mixin generate-mixed-colour-variable($var-name, $colour-value, $mix-percent,$mix-colour) {
+
+    $bg-colour: make-mixed-colour($colour-value, $mix-percent, $mix-colour);
+    --#{$var-name}: #{$bg-colour};
+}
+
+@function make-mixed-colour($colour-value, $mix-percent, $mix-colour){@return color.mix($mix-colour, $colour-value, $mix-percent);}
+
+@mixin generate-colour-opacity-variables($var-name, $colour-value,$percent-increment, $colour-suffix: "-clr-trans") {
+
+    $counter:       1;
+    $decimal-value: math.div($percent-increment, 100);
+    $reversecount:  math.div(1, $decimal-value);
+    $var-name:      $var-name + $colour-suffix;
+
+    @while $counter * $decimal-value < 1 {
+
+        $opacity-colour: rgba($colour-value, $counter * $decimal-value);
+
+        --#{$var-name}-#{($reversecount - $counter) * $percent-increment}: #{$opacity-colour};
+
+        $counter: $counter + 1;
+    }
+}
+
+@mixin generate-single-property-class($class-name, $property-name, $property-value,) {
+    
+    .#{$class-name} {#{$property-name}: #{$property-value};}
+}
+
+
+@mixin media-device-sm($width: min-width) {
+    @media ($width:$device-sm-min-width ) {
+        @content;
+    }
+}
+
+@mixin media-device-md($width: min-width) {
+    @media ($width:$device-md-min-width ) {
+        @content;
+    }
+}
+
+@mixin media-device-lg($width: min-width) {
+    @media ($width:$device-lg-min-width ) {
+        @content;
+    }
+}
+
+@mixin media-device-xl($width: min-width) {
+    @media (width:$device-xl-min-width ) {
+        @content;
+    }
+}
+
+@function make-var-function($var-name) {
+    @return "var(--" + $var-name + ")";
+}
+
+
+@function get-black-or-white-for-max-contrast($colour-value){
+
+    $white: #FFFFFF;
+    $black: #000000;
+    $contrast1: calculate-contrast($colour-value, $white);
+    $contrast2: calculate-contrast($colour-value, $black);
+
+    @if $contrast1 >= $contrast2{
+        @return $white;
+    }
+    @else{
+        @return $black;
+    }
+}
+
+
+@function RGBToLinear($colorValue) {
+    $colorValue: math.div($colorValue, 255);
+
+    @if $colorValue <= 0.04045 {
+        @return math.div($colorValue, 12.92);
+    }
+    @else {
+        @return math.pow(math.div($colorValue + 0.055, 1.055), 2.4);
+    }
+}
+
+@function calculate-contrast($value1, $value2) {
+    $luminance1: (0.2126 * RGBToLinear(red($value1))) + (0.7152 * RGBToLinear(green($value1))) + (0.0722 * RGBToLinear(blue($value1)));
+    $luminance2: (0.2126 * RGBToLinear(red($value2))) + (0.7152 * RGBToLinear(green($value2))) + (0.0722 * RGBToLinear(blue($value2)));
+
+    $contrast: math.div((math.max($luminance1, $luminance2) + 0.05), (math.min($luminance1, $luminance2) + 0.05));
+
+    @return math.div(math.round($contrast * 100), 100);
+}
