@@ -19,9 +19,9 @@ public static class ColourUtils
 
         hexColour = hexColour.TrimStart('#');
 
-        int red   = Convert.ToInt32(hexColour.Substring(0, 2), 16);
-        int green = Convert.ToInt32(hexColour.Substring(2, 2), 16);
-        int blue  = Convert.ToInt32(hexColour.Substring(4, 2), 16);
+        byte red   = Convert.ToByte(hexColour.Substring(0, 2), 16);
+        byte green = Convert.ToByte(hexColour.Substring(2, 2), 16);
+        byte blue  = Convert.ToByte(hexColour.Substring(4, 2), 16);
 
         return new RgbColour(red, green, blue);
     }
