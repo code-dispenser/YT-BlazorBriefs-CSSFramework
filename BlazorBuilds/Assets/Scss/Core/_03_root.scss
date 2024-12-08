@@ -11,7 +11,6 @@
 }
 
 :root {
-
     --disabled-brightness: 75%;
     --canvas-primary-light: #{make-mixed-colour($primary-colour, $canvas-light-percent, $light-mix-colour)};
     --canvas-primary-dark: #{make-mixed-colour($primary-colour, $canvas-dark-percent, $dark-mix-colour)};
@@ -51,8 +50,6 @@
     --box-shadow-on-dark-4: #{$box-shadow-on-dark-4};
     --box-shadow-on-dark-5: #{$box-shadow-on-dark-5};
     --fs-label: 0.875rem;
-
-
     --control-track-active-bg: #{make-mixed-colour($primary-colour, 70%, $light-mix-colour)};
     --control-track-inactive-bg: #{make-mixed-colour($neutral-colour, 80%, $light-mix-colour)};
     --control-surface-bg: #{make-mixed-colour(#000000, 95%, #FFFFFF)};
@@ -67,7 +64,8 @@
     --control-footer-area-bg: #{make-mixed-colour($neutral-colour, 90%, $light-mix-colour)};
     --control-footer-text-clr: #{make-mixed-colour($neutral-colour,$text-dark-mix-percent,$dark-mix-colour)};
     //--control-label-size:
-
+    --control-error-text-clr: #{$danger-colour};
+    
     --control-label-text-clr: #{make-mixed-colour($neutral-colour,$text-dark-mix-percent,$dark-mix-colour)};
     --control-hint-brightness: 85%;
     --control-focus-clr: #{$accent-colour};

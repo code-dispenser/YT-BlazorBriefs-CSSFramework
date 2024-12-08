@@ -2,7 +2,6 @@
 
 public static class GlobalValues
 {
-    public const string Incorrect_Hex_Value_Exception_Message = "The hex value needs to start with a # symbol with a total length of 7";
 
     public const string Background_Prefix                = "bg";
     public const int Shade_Percent_Increments_10         = 10;
@@ -95,28 +94,25 @@ public static class GlobalValues
 
 
 
+    #region Used by the Contrast Checker
 
+    public const string Incorrect_Hex_Value_Exception_Message = "Invalid hex value. The value should only contain a-f, A-F and 0-9 characters, optionally starting with the pound # symbol";
+    public const string Invalid_Colour_Entry_Message          = "Invalid hex colour value. Please use the full format of a pound sign followed by six characters, each being A to F or 0 to 9";
+    public const string Regex_Hex_Colour_Pattern              = "^#?[a-fA-F0-9]{6}$";
+    public const string Regex_Hex_Replace_Pattern             = "[^a-fA-F0-9]";
+    public const string Icon_Pass_Modifier_Class              = "contrast-checker__icon--pass";
+    public const string Icon_Fail_Modifier_Class              = "contrast-checker__icon--fail";
 
+    public const double Min_AAA_Normal_Text_Ratio = 7;
+    public const double Min_AAA_Large_Text_Ratio  = 4.5;
+    public const double Min_AA_Normal_Text_Ratio  = 4.5;
+    public const double Min_AA_Large_Text_Ratio   = 3;
+    public const double Min_Borders_Ratio         = 3;
+    public const double Regular_Font_PX           = 16;
+    public const double Large_Font_Bold_PX        = 18.66;
+    public const double Large_Font_PX             = 24;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    #endregion
 
 }
 

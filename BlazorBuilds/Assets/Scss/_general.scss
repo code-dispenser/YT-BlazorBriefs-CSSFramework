@@ -9,8 +9,6 @@
     --control-body-area-bg: var(--canvas-primary-light);
     --control-heading-area-bg: var(--primary-clr-lighter-90);
     --control-footer-area-bg: var(--primary-clr-lighter-90);
-
-
 }
 
 body:has(div > header > button.switch[aria-checked="true"]) {
@@ -21,6 +19,10 @@ body:has(div > header > button.switch[aria-checked="true"]) {
     background-color: var(--canvas-primary-dark);
     //background-color: var(--canvas-neutral-dark);
 
+    --control-error-text-clr: var(--danger-clr-lighter-10);
+    --control-heading-text-clr: var(--text-neutral-light);
+    --control-label-text-clr: var(--text-neutral-light);
+    --control-body-text-clr: var(--text-neutral-light);
     --control-body-area-bg: var(--neutral-clr-trans-85);
     --control-heading-area-bg: var(--neutral-clr-trans-75);
     --control-footer-area-bg: var(--neutral-clr-trans-75);

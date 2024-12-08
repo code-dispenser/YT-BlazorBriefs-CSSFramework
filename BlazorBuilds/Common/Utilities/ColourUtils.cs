@@ -1,5 +1,6 @@
 ﻿using BlazorBuilds.Common.Models;
 using BlazorBuilds.Common.Seeds;
+using System.Text.RegularExpressions;
 
 namespace BlazorBuilds.Common.Utilities;
 
@@ -15,7 +16,7 @@ public static class ColourUtils
     */
     public static RgbColour HexToRgbColour(string hexColour)
     {
-        if (false == hexColour.StartsWith("#") || hexColour.Length != 7) throw new ArgumentException(GlobalValues.Incorrect_Hex_Value_Exception_Message);
+        if (false == IsHexValueValid(hexColour)) throw new ArgumentException(GlobalValues.Incorrect_Hex_Value_Exception_Message);
 
         hexColour = hexColour.TrimStart('#');
 
@@ -25,12 +26,12 @@ public static class ColourUtils
 
         return new RgbColour(red, green, blue);
     }
-    public static double RgbColourValueToLinear(int colourValue)
+    public static double RgbColourValueToLinear(byte colourValue)
     {
         double normalized = colourValue / 255.0;
 
         if (normalized <= 0.04045) return normalized / 12.92;
-        
+
         return Math.Pow((normalized + 0.055) / 1.055, 2.4);
     }
     public static double CalculateContrast(RgbColour colourOne, RgbColour colourTwo)
@@ -41,4 +42,12 @@ public static class ColourUtils
 
         return Math.Round(contrastRatio, 2);
     }
+
+    public static bool IsHexValueValid(string? hexValue)
+
+        => Regex.IsMatch(hexValue ?? String.Empty, GlobalValues.Regex_Hex_Colour_Pattern);
+
+    public static string ReplaceNonHexChars(string? value, string replacement = "")
+
+        => Regex.Replace(value ?? String.Empty,GlobalValues.Regex_Hex_Replace_Pattern, replacement);
 }
