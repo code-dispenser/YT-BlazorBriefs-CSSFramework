@@ -3495,7 +3495,6 @@ body {
   font-size: 1rem;
   background-color: inherit;
   color: inherit;
-  background-color: #FDFDFD;
 }
 .contrast-checker__input:focus {
   outline-offset: 3px;
