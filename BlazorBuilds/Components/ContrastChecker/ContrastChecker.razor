@@ -1,13 +1,14 @@
 ﻿<div class="contrast-checker">
 
     <div class="contrast-checker__colour">
-        <label for="@_colourOneID" class="contrast-checker__label">Foreground colour:</label>
+        <label for="foreground_@_colourOneID" class="contrast-checker__label">Foreground colour:</label>
         <div class="contrast-checker__fields">
-            <input id="@_colourOneID" class="contrast-checker__picker" type="color" value="@_hexColourOne" @oninput="ColourOneOnInputHandler" />
+            <input id="@_colourOneID" class="contrast-checker__picker" type="color" value="@_hexColourOne" @oninput="ColourOneOnInputHandler" aria-hidden="true" tabindex="-1" />
             <button class="contrast-checker__opener" type="button" onclick="document.getElementById('@_colourOneID').click();" aria-label="Foreground colour picker">
                 <span class="eyedropper-icon contrast-checker__icon"></span>
             </button>
-            <input type="text" class="contrast-checker__input" @bind-value:get="@_hexColourOne" @bind-value:event="oninput" @bind-value:set="OnColourOneInput" maxlength="7" />
+            <input id="foreground_@_colourOneID" type="text" class="contrast-checker__input" @bind-value:get="@_hexColourOne" @bind-value:event="oninput" @bind-value:set="OnColourOneInput" maxlength="7"
+                   aria-invalid="@((!_colourOneIsValid).ToString().ToLower())" aria-describedby="@(_colourOneIsValid ? null : _errorMessageID)" />
         </div>
     </div>
 
@@ -16,15 +17,15 @@
     </button>
 
     <div class="contrast-checker__colour">
-        <label for="@_colourTwoID" class="contrast-checker__label">Background colour:</label>
+        <label for="background_@_colourTwoID" class="contrast-checker__label">Background colour:</label>
         <div class="contrast-checker__fields">
-            <input id="@_colourTwoID" class="contrast-checker__picker" type="color" value="@_hexColourTwo" @oninput="ColourTwoOnInputHandler"
-                   aria-invalid="@_colourOneIsValid.ToString().ToLower()" aria-describedby="@(_colourOneIsValid ? null : _errorMessageID)" />
+            <input id="@_colourTwoID" class="contrast-checker__picker" type="color" value="@_hexColourTwo" @oninput="ColourTwoOnInputHandler" aria-hidden="true" tabindex="-1" />
 
             <button class="contrast-checker__opener" type="button" onclick="document.getElementById('@_colourTwoID').click();" aria-label="Background colour picker">
                 <span class="eyedropper-icon contrast-checker__icon"></span>
             </button>
-            <input type="text" class="contrast-checker__input" @bind-value:get="@_hexColourTwo" @bind-value:event="oninput" @bind-value:set="OnColourTwoInput" maxlength="7" />
+            <input id="background_@_colourTwoID" type="text" class="contrast-checker__input" @bind-value:get="@_hexColourTwo" @bind-value:event="oninput" @bind-value:set="OnColourTwoInput" maxlength="7"
+                   aria-invalid="@((!_colourTwoIsValid).ToString().ToLower())" aria-describedby="@(_colourTwoIsValid ? null : _errorMessageID)" />
         </div>
     </div>
 
@@ -108,6 +109,5 @@
         </div>
 
     </div>
-
-
 </div>
+

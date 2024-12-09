@@ -3467,7 +3467,7 @@ body {
   display: flex;
   gap: 1rem;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 0.25rem;
 }
 .contrast-checker__picker {
   width: 3rem;
