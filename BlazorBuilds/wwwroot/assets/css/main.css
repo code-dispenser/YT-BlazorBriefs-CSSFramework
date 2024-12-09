@@ -418,7 +418,6 @@ ul, li {
   padding: 0;
   margin: 0;
   list-style: none;
-  list-style-type: none;
 }
 
 body {
@@ -3402,8 +3401,14 @@ body {
   color: var(--control-body-text-clr);
 }
 .contrast-checker li {
-  list-style: none;
   line-height: 1.5rem;
+  padding: 0;
+  margin: 0;
+}
+.contrast-checker ul {
+  list-style: none;
+  margin-left: 1rem;
+  padding: 0;
 }
 .contrast-checker h4 {
   font-size: 1rem;
