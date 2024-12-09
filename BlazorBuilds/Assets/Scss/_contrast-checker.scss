@@ -262,6 +262,22 @@
         gap: 1rem;
     }
 
+    &__screen-reader-alert {
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        color: transparent;
+        border: 0;
+        clip-path: inset(50%);
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
     @media (max-width: 60rem) {
         grid-template-columns: minmax(14rem, 1fr);
         grid-template-rows: repeat(5, auto);

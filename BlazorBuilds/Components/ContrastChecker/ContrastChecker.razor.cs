@@ -1,31 +1,33 @@
 ﻿using BlazorBuilds.Common.Seeds;
 using BlazorBuilds.Common.Utilities;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace BlazorBuilds.Components.ContrastChecker;
 
 
 public partial class ContrastChecker
 {
-    [Parameter] public string HexColourValueOne  { get; set; } = "#000000";
-    [Parameter] public string HexColourValueTwo  { get; set; } = "#FFFFFF";
-    [Parameter] public double AAALargeTextRatio  { get; set; } = GlobalValues.Min_AAA_Large_Text_Ratio;
-    [Parameter] public double AALargeTextRatio   { get; set; } = GlobalValues.Min_AA_Large_Text_Ratio;
+    [Parameter] public string HexColourValueOne { get; set; } = "#000000";
+    [Parameter] public string HexColourValueTwo { get; set; } = "#FFFFFF";
+    [Parameter] public double AAALargeTextRatio { get; set; } = GlobalValues.Min_AAA_Large_Text_Ratio;
+    [Parameter] public double AALargeTextRatio { get; set; } = GlobalValues.Min_AA_Large_Text_Ratio;
     [Parameter] public double AAANormalTextRatio { get; set; } = GlobalValues.Min_AAA_Normal_Text_Ratio;
-    [Parameter] public double AANormalTextRatio  { get; set; } = GlobalValues.Min_AA_Normal_Text_Ratio;
-    [Parameter] public double Regular_Font_PX    { get; set; } = GlobalValues.Regular_Font_PX;
+    [Parameter] public double AANormalTextRatio { get; set; } = GlobalValues.Min_AA_Normal_Text_Ratio;
+    [Parameter] public double Regular_Font_PX { get; set; } = GlobalValues.Regular_Font_PX;
     [Parameter] public double Large_Font_Bold_PX { get; set; } = GlobalValues.Large_Font_Bold_PX;
-    [Parameter] public double Large_Font_PX      { get; set; } = GlobalValues.Large_Font_PX;
+    [Parameter] public double Large_Font_PX { get; set; } = GlobalValues.Large_Font_PX;
 
-    private string _colourOneID         = Guid.NewGuid().ToString();
-    private string _colourTwoID         = Guid.NewGuid().ToString();
-    private string _hexColourOne        = "#000000";
-    private string _hexColourTwo        = "#FFFFFF";
-    private string _displayTextColour   = "#000000";
-    private string _displayBgColour     = "#FFFFFF";
-    private bool   _colourOneIsValid    = true;
-    private bool   _colourTwoIsValid    = true;
-    private string _errorMessageID      = Guid.NewGuid().ToString();
+    private string _ariaAlertMessage = String.Empty;
+    private string _colourOneID = Guid.NewGuid().ToString();
+    private string _colourTwoID = Guid.NewGuid().ToString();
+    private string _hexColourOne = "#000000";
+    private string _hexColourTwo = "#FFFFFF";
+    private string _displayTextColour = "#000000";
+    private string _displayBgColour = "#FFFFFF";
+    private bool _colourOneIsValid = true;
+    private bool _colourTwoIsValid = true;
+    private string _errorMessageID = Guid.NewGuid().ToString();
 
     private double _contrastRatio = 0;
 
@@ -67,6 +69,8 @@ public partial class ContrastChecker
         _colourOneIsValid = _displayTextColour == _hexColourOne;
         _contrastRatio    = GetContrastRatio(_hexColourOne, _hexColourTwo);
 
+        if (_contrastRatio > 0) SetAriaAlert(String.Format(GlobalValues.Aria_Foramt_Contrast_Ratio_Message, _contrastRatio));
+
         await Task.CompletedTask;
     }
 
@@ -79,6 +83,8 @@ public partial class ContrastChecker
         _colourTwoIsValid = _displayBgColour == _hexColourTwo;
         _contrastRatio    = GetContrastRatio(_hexColourOne, _hexColourTwo);
 
+        if (_contrastRatio > 0) SetAriaAlert(String.Format(GlobalValues.Aria_Foramt_Contrast_Ratio_Message, _contrastRatio));
+
         await Task.CompletedTask;
     }
 
@@ -88,8 +94,31 @@ public partial class ContrastChecker
                 ? ColourUtils.CalculateContrast(ColourUtils.HexToRgbColour(hexColourOne), ColourUtils.HexToRgbColour(hexColourTwo))
                 : 0;
 
-
     private string GetIconResultClass(double requiredRatio)
 
         => requiredRatio <= _contrastRatio ? GlobalValues.Icon_Pass_Modifier_Class : GlobalValues.Icon_Fail_Modifier_Class;
+    private string GetPassFailTextForValue(double requiredRatio)
+
+        => requiredRatio <= _contrastRatio ? GlobalValues.Contrast_Ratio_Pass_Text : GlobalValues.Contrast_Ratio_Fail_Text;
+    private void HandleColourOneMaxlegnth(KeyboardEventArgs keyArgs)
+    {
+        ClearAriaAlert();
+
+        if (_hexColourOne.Length == 7 && ColourUtils.IsValidKeyChar(keyArgs.Key)) SetAriaAlert(GlobalValues.Aria_MaxLength_Reached_Message);
+    }
+    private void HandleColourTwoMaxlegnth(KeyboardEventArgs keyArgs)
+    {
+        ClearAriaAlert();
+
+        if (_hexColourTwo.Length == 7 && ColourUtils.IsValidKeyChar(keyArgs.Key)) SetAriaAlert(GlobalValues.Aria_MaxLength_Reached_Message);
+    }
+
+    private void ClearAriaAlert()
+
+        => _ariaAlertMessage = String.Empty;
+
+    private void SetAriaAlert(string message)
+
+        => _ariaAlertMessage = message;
 }
+

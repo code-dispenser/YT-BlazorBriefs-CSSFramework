@@ -1,5 +1,6 @@
-﻿<div class="contrast-checker">
-
+﻿
+<div class="contrast-checker">
+    <span aria-live="assertive" class="contrast-checker__screen-reader-alert">@_ariaAlertMessage</span>
     <div class="contrast-checker__colour">
         <label for="foreground_@_colourOneID" class="contrast-checker__label">Foreground colour:</label>
         <div class="contrast-checker__fields">
@@ -7,8 +8,8 @@
             <button class="contrast-checker__opener" type="button" onclick="document.getElementById('@_colourOneID').click();" aria-label="Foreground colour picker">
                 <span class="eyedropper-icon contrast-checker__icon"></span>
             </button>
-            <input id="foreground_@_colourOneID" type="text" class="contrast-checker__input" @bind-value:get="@_hexColourOne" @bind-value:event="oninput" @bind-value:set="OnColourOneInput" maxlength="7"
-                   aria-invalid="@((!_colourOneIsValid).ToString().ToLower())" aria-describedby="@(_colourOneIsValid ? null : _errorMessageID)" />
+            <input id="foreground_@_colourOneID" type="text" class="contrast-checker__input" @bind-value:get="_hexColourOne" @bind-value:event="oninput" @bind-value:set="OnColourOneInput" maxlength="7"
+                   aria-invalid="@((!_colourOneIsValid).ToString().ToLower())" aria-describedby="@(_colourOneIsValid ? null : _errorMessageID)" @onkeydown="HandleColourOneMaxlegnth" required />
         </div>
     </div>
 
@@ -24,8 +25,8 @@
             <button class="contrast-checker__opener" type="button" onclick="document.getElementById('@_colourTwoID').click();" aria-label="Background colour picker">
                 <span class="eyedropper-icon contrast-checker__icon"></span>
             </button>
-            <input id="background_@_colourTwoID" type="text" class="contrast-checker__input" @bind-value:get="@_hexColourTwo" @bind-value:event="oninput" @bind-value:set="OnColourTwoInput" maxlength="7"
-                   aria-invalid="@((!_colourTwoIsValid).ToString().ToLower())" aria-describedby="@(_colourTwoIsValid ? null : _errorMessageID)" />
+            <input id="background_@_colourTwoID" type="text" class="contrast-checker__input" @bind-value:get="_hexColourTwo" @bind-value:event="oninput" @bind-value:set="OnColourTwoInput" maxlength="7"
+                   aria-invalid="@((!_colourTwoIsValid).ToString().ToLower())" aria-describedby="@(_colourTwoIsValid ? null : _errorMessageID)" @onkeydown="HandleColourTwoMaxlegnth" required />
         </div>
     </div>
 
@@ -70,18 +71,18 @@
             <tbody>
                 <tr>
                     <td>Regular text</td>
-                    <td class="centre-content"><span class="contrast-checker__icon @(GetIconResultClass(GlobalValues.Min_AA_Normal_Text_Ratio))"></span></td>
-                    <td class="centre-content"><span class="contrast-checker__icon @(GetIconResultClass(GlobalValues.Min_AAA_Normal_Text_Ratio))"></span></td>
+                    <td class="centre-content"><span class="contrast-checker__icon @(GetIconResultClass(GlobalValues.Min_AA_Normal_Text_Ratio))" aria-label="@GetPassFailTextForValue(GlobalValues.Min_AA_Normal_Text_Ratio)"></span></td>
+                    <td class="centre-content"><span class="contrast-checker__icon @(GetIconResultClass(GlobalValues.Min_AAA_Normal_Text_Ratio))" aria-label="@GetPassFailTextForValue(GlobalValues.Min_AAA_Normal_Text_Ratio)"></span></td>
                 </tr>
                 <tr>
                     <td>Large text</td>
-                    <td class="centre-content"><span class="contrast-checker__icon @(GetIconResultClass(GlobalValues.Min_AA_Large_Text_Ratio))"></span></td>
-                    <td class="centre-content"><span class="contrast-checker__icon @(GetIconResultClass(GlobalValues.Min_AAA_Large_Text_Ratio))"></span></td>
+                    <td class="centre-content"><span class="contrast-checker__icon @(GetIconResultClass(GlobalValues.Min_AA_Large_Text_Ratio))" aria-label="@GetPassFailTextForValue(GlobalValues.Min_AA_Large_Text_Ratio)"></span></td>
+                    <td class="centre-content"><span class="contrast-checker__icon @(GetIconResultClass(GlobalValues.Min_AAA_Large_Text_Ratio))" aria-label="@GetPassFailTextForValue(GlobalValues.Min_AAA_Large_Text_Ratio)"></span></td>
                 </tr>
                 <tr>
                     <td>Graphical objects and UI elements</td>
-                    <td class="centre-content"><span class="contrast-checker__icon @(GetIconResultClass(GlobalValues.Min_Borders_Ratio))"></span></td>
-                    <td class="centre-content">N/A</td>
+                    <td class="centre-content"><span class="contrast-checker__icon @(GetIconResultClass(GlobalValues.Min_Borders_Ratio))" aria-label="@GetPassFailTextForValue(GlobalValues.Min_Borders_Ratio)"></span></td>
+                    <td class="centre-content" aria-label="Not applicable">N/A</td>
                 </tr>
             </tbody>
         </table>

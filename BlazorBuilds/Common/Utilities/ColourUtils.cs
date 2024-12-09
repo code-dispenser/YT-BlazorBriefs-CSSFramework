@@ -49,5 +49,9 @@ public static class ColourUtils
 
     public static string ReplaceNonHexChars(string? value, string replacement = "")
 
-        => Regex.Replace(value ?? String.Empty,GlobalValues.Regex_Hex_Replace_Pattern, replacement);
+        => Regex.Replace(value ?? String.Empty, GlobalValues.Regex_Hex_Replace_Pattern, replacement);
+
+    public static bool IsValidKeyChar(string? enteredCharacter)
+
+        => Regex.IsMatch(enteredCharacter ?? String.Empty, GlobalValues.Regex_Colour_Key_Pattern);
 }
