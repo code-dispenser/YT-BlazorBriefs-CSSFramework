@@ -33,12 +33,12 @@
     &:focus {
         outline-offset: 0.30rem;
         outline: 2px solid var(--focus-clr);
-        box-shadow: var(--box-shadow-2);
+        box-shadow: var(--control-box-shadow-2);
     }
 
     &:hover:not([aria-disabled="true"]) {
         filter: brightness(120%);
-        box-shadow: var(--box-shadow-2);
+        box-shadow: var(--control-box-shadow-2);
     }
 
     &--round {

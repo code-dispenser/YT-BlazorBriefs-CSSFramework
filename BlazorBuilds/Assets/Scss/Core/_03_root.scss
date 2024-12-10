@@ -65,7 +65,6 @@
     --control-footer-text-clr: #{make-mixed-colour($neutral-colour,$text-dark-mix-percent,$dark-mix-colour)};
     //--control-label-size:
     --control-error-text-clr: #{$danger-colour};
-    
     --control-label-text-clr: #{make-mixed-colour($neutral-colour,$text-dark-mix-percent,$dark-mix-colour)};
     --control-hint-brightness: 85%;
     --control-focus-clr: #{$accent-colour};
@@ -74,6 +73,9 @@
     --control-box-shadow: #{$box-shadow-on-dark-1};
     --control-border-radius: 0.25rem;
     --control-disabled-brightness: 75%;
+    --control-box-shadow-1: #{$box-shadow-1};
+    --control-box-shadow-2: #{$box-shadow-2};
+
 
 
     @include generate-font-size-vars-classes($font-prefix,$base-font-size, $font-scale-factor,$small-prefix,true);

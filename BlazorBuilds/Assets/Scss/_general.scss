@@ -29,6 +29,8 @@ body:has(div > header > button.switch[aria-checked="true"]) {
     --control-surface-bg: var(--neutral-clr-darker-50);
     --box-shadow-1: var(--box-shadow-on-dark-1);
     --box-shadow-2: var(--box-shadow-on-dark-2);
+    --control-box-shadow-1: var(--box-shadow-on-dark-1);
+    --control-box-shadow-2: var(--box-shadow-on-dark-2);
     --focus-clr: var(--accent-clr);
 
     & #app__navigation {
