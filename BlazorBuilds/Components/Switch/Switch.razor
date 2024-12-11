@@ -46,7 +46,7 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        _styleType = StyleAs == StyleAs.Dynamic ? null : (StyleAs == StyleAs.OnLight ? "light" : "dark");
+        _styleType = StyleAs == StyleAs.Dynamic ? null : (StyleAs == StyleAs.OnLight ? GlobalValues.Style_As_Light : GlobalValues.Style_As_Dark);
         if (true == String.IsNullOrWhiteSpace(Label)) throw new ArgumentNullException(nameof(Label), "Label cannot be null, empty or whitespace");
         if (_switchState != SwitchState && false == Disabled) await RaiseOnSwitchStateChanged(SwitchState);
     }

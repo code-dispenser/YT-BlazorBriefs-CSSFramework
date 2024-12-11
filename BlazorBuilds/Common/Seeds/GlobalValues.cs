@@ -91,7 +91,8 @@ public static class GlobalValues
     public const int Font_Weight_Count                   = 9;
     public const int Font_Weight_Factor                  = 100;
 
-
+    public const string Style_As_Dark                    = "dark";
+    public const string Style_As_Light                   = "light";
 
 
     #region Used by the Contrast Checker

@@ -1,5 +1,6 @@
 ﻿using BlazorBuilds.Common.Seeds;
 using BlazorBuilds.Common.Utilities;
+using BlazorBuilds.Components.Common.Seeds;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -8,34 +9,36 @@ namespace BlazorBuilds.Components.ContrastChecker;
 
 public partial class ContrastChecker
 {
-    [Parameter] public string HexColourValueOne { get; set; } = "#000000";
-    [Parameter] public string HexColourValueTwo { get; set; } = "#FFFFFF";
-    [Parameter] public double AAALargeTextRatio { get; set; } = GlobalValues.Min_AAA_Large_Text_Ratio;
-    [Parameter] public double AALargeTextRatio { get; set; } = GlobalValues.Min_AA_Large_Text_Ratio;
+    [Parameter] public string HexColourValueOne  { get; set; } = "#000000";
+    [Parameter] public string HexColourValueTwo  { get; set; } = "#FFFFFF";
+    [Parameter] public double AAALargeTextRatio  { get; set; } = GlobalValues.Min_AAA_Large_Text_Ratio;
+    [Parameter] public double AALargeTextRatio   { get; set; } = GlobalValues.Min_AA_Large_Text_Ratio;
     [Parameter] public double AAANormalTextRatio { get; set; } = GlobalValues.Min_AAA_Normal_Text_Ratio;
-    [Parameter] public double AANormalTextRatio { get; set; } = GlobalValues.Min_AA_Normal_Text_Ratio;
-    [Parameter] public double Regular_Font_PX { get; set; } = GlobalValues.Regular_Font_PX;
+    [Parameter] public double AANormalTextRatio  { get; set; } = GlobalValues.Min_AA_Normal_Text_Ratio;
+    [Parameter] public double Regular_Font_PX    { get; set; } = GlobalValues.Regular_Font_PX;
     [Parameter] public double Large_Font_Bold_PX { get; set; } = GlobalValues.Large_Font_Bold_PX;
-    [Parameter] public double Large_Font_PX { get; set; } = GlobalValues.Large_Font_PX;
+    [Parameter] public double Large_Font_PX      { get; set; } = GlobalValues.Large_Font_PX;
+    [Parameter] public StyleAs StyleAs           { get; set; } = StyleAs.Dynamic;
 
-    private string _ariaAlertMessage = String.Empty;
-    private string _colourOneID = Guid.NewGuid().ToString();
-    private string _colourTwoID = Guid.NewGuid().ToString();
-    private string _hexColourOne = "#000000";
-    private string _hexColourTwo = "#FFFFFF";
+    private string _ariaAlertMessage  = String.Empty;
+    private string _colourOneID       = Guid.NewGuid().ToString();
+    private string _colourTwoID       = Guid.NewGuid().ToString();
+    private string _hexColourOne      = "#000000";
+    private string _hexColourTwo      = "#FFFFFF";
     private string _displayTextColour = "#000000";
-    private string _displayBgColour = "#FFFFFF";
-    private bool _colourOneIsValid = true;
-    private bool _colourTwoIsValid = true;
-    private string _errorMessageID = Guid.NewGuid().ToString();
-
+    private string _displayBgColour   = "#FFFFFF";
+    private bool   _colourOneIsValid  = true;
+    private bool   _colourTwoIsValid  = true;
+    private string _errorMessageID    = Guid.NewGuid().ToString();
+    private string? _styleType        = null;
     private double _contrastRatio = 0;
 
 
     protected override void OnParametersSet()
     {
-        _hexColourOne = (true == ColourUtils.IsHexValueValid(HexColourValueOne)) ? HexColourValueOne : throw new ArgumentException(GlobalValues.Incorrect_Hex_Value_Exception_Message);
-        _hexColourTwo = (true == ColourUtils.IsHexValueValid(HexColourValueTwo)) ? HexColourValueTwo : throw new ArgumentException(GlobalValues.Incorrect_Hex_Value_Exception_Message);
+        _styleType     = StyleAs == StyleAs.Dynamic ? null : (StyleAs == StyleAs.OnLight ? GlobalValues.Style_As_Light : GlobalValues.Style_As_Dark);
+        _hexColourOne  = (true == ColourUtils.IsHexValueValid(HexColourValueOne)) ? HexColourValueOne : throw new ArgumentException(GlobalValues.Incorrect_Hex_Value_Exception_Message);
+        _hexColourTwo  = (true == ColourUtils.IsHexValueValid(HexColourValueTwo)) ? HexColourValueTwo : throw new ArgumentException(GlobalValues.Incorrect_Hex_Value_Exception_Message);
         _contrastRatio = GetContrastRatio(_hexColourOne, _hexColourTwo);
     }
 
