@@ -94,13 +94,12 @@ public static class GlobalValues
     public const string Style_As_Dark                    = "dark";
     public const string Style_As_Light                   = "light";
 
-
     #region Used by the Contrast Checker
 
     public const string Incorrect_Hex_Value_Exception_Message = "Invalid hex value. The value should only contain a-f, A-F and 0-9 characters, optionally starting with the pound # symbol";
     public const string Invalid_Colour_Entry_Message          = "Invalid hex colour value. Please use the full format of a pound sign followed by six characters, each being A to F or 0 to 9";
     public const string Aria_MaxLength_Reached_Message        = "That key was not used as the maximum length of the input has been reached.";
-    public const string Aria_Foramt_Contrast_Ratio_Message    = "Contrast ratio {0} to 1";  
+    public const string Aria_Format_Contrast_Ratio_Message    = "Contrast ratio {0} to 1";  
     public const string Regex_Hex_Colour_Pattern              = "^#?[a-fA-F0-9]{6}$";
     public const string Regex_Colour_Key_Pattern              = "^[#a-fA-F0-9]$";
     public const string Regex_Hex_Replace_Pattern             = "[^a-fA-F0-9]";

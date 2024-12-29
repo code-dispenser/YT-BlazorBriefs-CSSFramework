@@ -59,8 +59,13 @@
     --control-divider-bg: #{make-mixed-colour($neutral-colour, 50%, $light-mix-colour)};
     --control-heading-area-bg: #{make-mixed-colour($neutral-colour, 90%, $light-mix-colour)};
     --control-heading-text-clr: #{make-mixed-colour($neutral-colour,$text-dark-mix-percent,$dark-mix-colour)};
-    --control-body-area-bg: #{make-mixed-colour($neutral-colour, 95%, $light-mix-colour)};
+    
+    --control-body-area-bg: #{make-mixed-colour($neutral-colour,  $canvas-light-percent, $light-mix-colour)};
     --control-body-text-clr: #{make-mixed-colour($neutral-colour,$text-dark-mix-percent,$dark-mix-colour)};
+    --control-inverse-body-area-bg: #{make-mixed-colour($neutral-colour,  $canvas-dark-percent, $dark-mix-colour)};
+    --control-inverse-body-text-clr: #{make-mixed-colour($neutral-colour,$text-light-mix-percent,$light-mix-colour)};
+
+
     --control-footer-area-bg: #{make-mixed-colour($neutral-colour, 90%, $light-mix-colour)};
     --control-footer-text-clr: #{make-mixed-colour($neutral-colour,$text-dark-mix-percent,$dark-mix-colour)};
     //--control-label-size:

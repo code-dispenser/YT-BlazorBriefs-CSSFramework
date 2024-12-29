@@ -72,7 +72,7 @@ public partial class ContrastChecker
         _colourOneIsValid = _displayTextColour == _hexColourOne;
         _contrastRatio    = GetContrastRatio(_hexColourOne, _hexColourTwo);
 
-        if (_contrastRatio > 0) SetAriaAlert(String.Format(GlobalValues.Aria_Foramt_Contrast_Ratio_Message, _contrastRatio));
+        if (_contrastRatio > 0) SetAriaAlert(String.Format(GlobalValues.Aria_Format_Contrast_Ratio_Message, _contrastRatio));
 
         await Task.CompletedTask;
     }
@@ -86,7 +86,7 @@ public partial class ContrastChecker
         _colourTwoIsValid = _displayBgColour == _hexColourTwo;
         _contrastRatio    = GetContrastRatio(_hexColourOne, _hexColourTwo);
 
-        if (_contrastRatio > 0) SetAriaAlert(String.Format(GlobalValues.Aria_Foramt_Contrast_Ratio_Message, _contrastRatio));
+        if (_contrastRatio > 0) SetAriaAlert(String.Format(GlobalValues.Aria_Format_Contrast_Ratio_Message, _contrastRatio));
 
         await Task.CompletedTask;
     }
@@ -103,13 +103,13 @@ public partial class ContrastChecker
     private string GetPassFailTextForValue(double requiredRatio)
 
         => requiredRatio <= _contrastRatio ? GlobalValues.Contrast_Ratio_Pass_Text : GlobalValues.Contrast_Ratio_Fail_Text;
-    private void HandleColourOneMaxlegnth(KeyboardEventArgs keyArgs)
+    private void HandleColourOneMaxlength(KeyboardEventArgs keyArgs)
     {
         ClearAriaAlert();
 
         if (_hexColourOne.Length == 7 && ColourUtils.IsValidKeyChar(keyArgs.Key)) SetAriaAlert(GlobalValues.Aria_MaxLength_Reached_Message);
     }
-    private void HandleColourTwoMaxlegnth(KeyboardEventArgs keyArgs)
+    private void HandleColourTwoMaxlength(KeyboardEventArgs keyArgs)
     {
         ClearAriaAlert();
 
