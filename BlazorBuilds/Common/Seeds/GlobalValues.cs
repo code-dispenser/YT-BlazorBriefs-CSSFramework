@@ -1,4 +1,6 @@
-﻿namespace BlazorBuilds.Common.Seeds;
+﻿using BlazorBuilds.Components.Common.Seeds;
+
+namespace BlazorBuilds.Common.Seeds;
 
 public static class GlobalValues
 {
@@ -117,7 +119,14 @@ public static class GlobalValues
     public const double Large_Font_Bold_PX        = 18.66;
     public const double Large_Font_PX             = 24;
 
+    public static string? GetStyleAsValue(StyleAs styleAs)
 
+    => styleAs switch
+    {
+        StyleAs.OnLight => Style_As_Light,
+        StyleAs.OnDark => Style_As_Dark,
+        _ => null
+    };
     #endregion
 
 }

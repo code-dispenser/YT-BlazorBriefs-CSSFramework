@@ -30,13 +30,11 @@ public partial class ContrastChecker
     private bool   _colourOneIsValid  = true;
     private bool   _colourTwoIsValid  = true;
     private string _errorMessageID    = Guid.NewGuid().ToString();
-    private string? _styleType        = null;
     private double _contrastRatio = 0;
 
 
     protected override void OnParametersSet()
     {
-        _styleType     = StyleAs == StyleAs.Dynamic ? null : (StyleAs == StyleAs.OnLight ? GlobalValues.Style_As_Light : GlobalValues.Style_As_Dark);
         _hexColourOne  = (true == ColourUtils.IsHexValueValid(HexColourValueOne)) ? HexColourValueOne : throw new ArgumentException(GlobalValues.Incorrect_Hex_Value_Exception_Message);
         _hexColourTwo  = (true == ColourUtils.IsHexValueValid(HexColourValueTwo)) ? HexColourValueTwo : throw new ArgumentException(GlobalValues.Incorrect_Hex_Value_Exception_Message);
         _contrastRatio = GetContrastRatio(_hexColourOne, _hexColourTwo);
